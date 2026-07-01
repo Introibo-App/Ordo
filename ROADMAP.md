@@ -3,7 +3,7 @@
 _A plain-language overview of where Ordo is headed. Each version links to its tracking milestone and
 the issues that make it up (issue links are added once the backlog is imported)._
 
-_Last updated: 2026-06-30_
+_Last updated: 2026-07-01_
 
 ## 🚧 In progress — [v0.1.0](https://github.com/Introibo-App/Ordo/milestone/1)
 **Standalone plugin.** A self-contained MVP that bundles the Introibo engine: the masthead calendar
@@ -20,7 +20,9 @@ transients, and degrade gracefully when the API is unreachable.
   white-label palettes, accessibility, hour navigator + go-to-date, PWA/offline.
 - **[v0.6.0](https://github.com/Introibo-App/Ordo/milestone/4) — Outputs & integrations.** iCal + printable monthly Ordo (PDF) + print CSS.
 - **[v1.0.0](https://github.com/Introibo-App/Ordo/milestone/5) — Platform launch.** Cut together with Core, Api, and Site.
-- **[v1.1.0](https://github.com/Introibo-App/Ordo/milestone/6)+ — On-site Mass & Office reader surfaces.**
+- **[v1.1.0](https://github.com/Introibo-App/Ordo/milestone/6)+ — On-site Mass & Office reader surfaces**, plus an optional **"Why this day?"
+  disclosure** (mockups-gated).
+- **[v2.0.0](https://github.com/Introibo-App/Ordo/milestone/7) — Comparison block.** An optional embeddable comparison widget (mockups-gated).
 
 ## ✅ Released
 _None yet._
