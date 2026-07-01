@@ -1,0 +1,9 @@
+# Code owners for Introibo Ordo (WordPress plugin).
+# The last matching pattern wins; owners are auto-requested for review.
+
+# Default owner for everything.
+*                       @manlycucumber
+
+# User-facing interface is mockups-gated: token-exact mockups are approved
+# before any surface is built. (Paths reserve the review convention.)
+/mockups/               @manlycucumber
