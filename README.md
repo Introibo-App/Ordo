@@ -30,5 +30,5 @@ sync). No runtime build step — Node is used only to bundle assets at build tim
 
 ## Licence
 
-© 2026 Introibo. Licensed under **GPL-2.0-or-later** (see [LICENSE](LICENSE)). The compiled calendar
+© 2026 Introibo. Licensed under **AGPL-3.0-or-later** (see [LICENSE](LICENSE)). The compiled calendar
 dataset is released under **CC0**.
