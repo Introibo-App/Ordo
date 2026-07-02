@@ -2,7 +2,7 @@
     "name": "introibo/ordo",
     "description": "Ordo: a WordPress plugin presenting the traditional Roman liturgical calendar (bundles the Introibo engine).",
     "type": "wordpress-plugin",
-    "license": "GPL-2.0-or-later",
+    "license": "AGPL-3.0-or-later",
     "require": {
         "php": ">=7.4"
     },
