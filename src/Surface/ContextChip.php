@@ -21,6 +21,15 @@ final class ContextChip
             . '</div>';
     }
 
+    /**
+     * Just the calendar chip, for the day view's chip row where it sits beside the
+     * class and colour chips rather than in the standalone two-chip context group.
+     */
+    public static function calendarChip(Context $context): string
+    {
+        return self::chip(_x('Cal.', 'abbreviation of "calendar"', 'ordo'), $context->calendarLabel());
+    }
+
     private static function chip(string $label, string $value): string
     {
         return '<span class="ordo-chip">'

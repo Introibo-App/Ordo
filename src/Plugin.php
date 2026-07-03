@@ -10,10 +10,10 @@ use Introibo\Ordo\Engine\Core;
  * The plugin bootstrap: wired once on `plugins_loaded`.
  *
  * This is the composition root. It registers the pretty-permalink route, loads
- * translations, wires the today card and masthead surfaces (their shortcodes and
- * blocks), and registers the assets; the month grid, day view and settings attach
- * here as their epics land. It holds the single {@see Core} engine boundary so
- * every surface shares one instance.
+ * translations, wires every surface (the today card, masthead, month grid and their
+ * blocks), the day-view REST route and the /ordo/ day page, and registers the
+ * assets; settings attach here as that epic lands. It holds the single {@see Core}
+ * engine boundary so every surface shares one instance.
  */
 final class Plugin
 {
@@ -44,12 +44,17 @@ final class Plugin
         $assets = new Assets();
         $shortcodes = new Shortcodes($this->engine, $assets);
         $blocks = new Blocks($shortcodes);
+        $rest = new Rest($this->engine);
+        $dayRoute = new DayRoute($assets);
 
         add_action('init', array(Rewrites::class, 'register'));
         add_action('init', array($this, 'loadTextDomain'));
         add_action('init', array($assets, 'register'));
         add_action('init', array($shortcodes, 'register'));
         add_action('init', array($blocks, 'register'));
+        add_action('rest_api_init', array($rest, 'register'));
+
+        $dayRoute->register();
     }
 
     /** Load the plugin's translations from the bundled /languages directory. */

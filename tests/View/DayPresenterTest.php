@@ -58,4 +58,43 @@ final class DayPresenterTest extends TestCase
         self::assertSame('white', $day->colour());
         self::assertSame('Christmastide', $day->seasonName());
     }
+
+    public function testRankLineAndTemporalNameForFirstClassFeast(): void
+    {
+        $day = new DayPresenter((new Core())->day(new DateTimeImmutable('2026-09-03'), 'sspx'));
+
+        self::assertSame('feast', $day->kind());
+        self::assertSame('Feast', $day->kindLabel());
+        self::assertSame('First class', $day->classLabel());
+        self::assertSame('First class · Feast', $day->rankLine());
+        self::assertSame(
+            'Feria V infra Hebdomadam XIV post Octavam Pentecostes',
+            $day->temporalName()
+        );
+        // A first-class feast admits no commemoration.
+        self::assertSame([], $day->commemorations());
+    }
+
+    public function testFeriaRankLineNamesTheKind(): void
+    {
+        $day = new DayPresenter((new Core())->day(new DateTimeImmutable('2026-09-04')));
+
+        self::assertSame('feria', $day->kind());
+        self::assertSame('Fourth class · Feria', $day->rankLine());
+    }
+
+    public function testCommemorationsExposeNameColourAndKind(): void
+    {
+        // 16 Sep: Ss. Cornelii & Cypriani, commemorating Ss. Euphemia & companions.
+        $day = new DayPresenter((new Core())->day(new DateTimeImmutable('2026-09-16')));
+
+        $commemorations = $day->commemorations();
+        self::assertCount(1, $commemorations);
+        self::assertSame(
+            'Ss. Euphemiae Virginis et Martyris, ac Luciae et Geminiani Martyrum',
+            $commemorations[0]['name']
+        );
+        self::assertSame('red', $commemorations[0]['colour']);
+        self::assertSame('Commemoration', $commemorations[0]['kindLabel']);
+    }
 }

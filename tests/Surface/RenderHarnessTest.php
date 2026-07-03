@@ -22,11 +22,13 @@ final class RenderHarnessTest extends TestCase
     protected function setUp(): void
     {
         $GLOBALS['__ordo_options'] = [];
+        $_GET = [];
     }
 
     protected function tearDown(): void
     {
         unset($GLOBALS['__ordo_options']);
+        $_GET = [];
     }
 
     private function shortcodes(): Shortcodes
@@ -114,6 +116,29 @@ final class RenderHarnessTest extends TestCase
         self::assertStringContainsString('I classis', $html);
         self::assertStringContainsString('Feria V · 3 Septembris mmxxvi', $html);
         self::assertStringContainsString('var(--ordo-on-white)', $html);
+    }
+
+    public function testCalendarShortcodeRendersMonthFromAttributes(): void
+    {
+        $this->selectCalendar('sspx');
+        $html = $this->shortcodes()->renderCalendar(['year' => '2026', 'month' => '9']);
+
+        self::assertStringContainsString('class="ordo-cal"', $html);
+        self::assertStringContainsString('September', $html);
+        self::assertStringContainsString('/ordo/2026-09-03/', $html);
+        self::assertStringContainsString('data-ordo-day="2026-09-03"', $html);
+        self::assertStringContainsString('ordo-is-first', $html);
+    }
+
+    public function testCalendarShortcodeQueryStringOverridesAttributes(): void
+    {
+        $this->selectCalendar('universal');
+        $_GET = ['ordo_y' => '2026', 'ordo_m' => '12'];
+        $html = $this->shortcodes()->renderCalendar(['year' => '2026', 'month' => '9']);
+
+        // The query string wins: December is shown, not the September attribute.
+        self::assertStringContainsString('December', $html);
+        self::assertStringContainsString('/ordo/2026-12-25/', $html);
     }
 
     public function testOutputEscapesAndCarriesNoRawScript(): void

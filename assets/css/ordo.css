@@ -354,9 +354,530 @@
 	right: 0;
 }
 
+/* ── month grid ── */
+.ordo .ordo-cal {
+	padding: 20px 22px 24px;
+}
+
+.ordo .ordo-cal__head {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	gap: 16px;
+	margin-bottom: 14px;
+}
+
+.ordo .ordo-cal__m {
+	font-family: var(--ordo-serif);
+	font-size: 29px;
+	line-height: 1;
+	font-weight: 600;
+	color: var(--ordo-navy);
+}
+
+.ordo .ordo-cal__m small {
+	display: block;
+	font-family: var(--ordo-sc);
+	font-size: 11px;
+	letter-spacing: 0.14em;
+	color: var(--ordo-oxblood);
+	margin-top: 4px;
+}
+
+.ordo .ordo-cal__nav {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+}
+
+.ordo .ordo-cal__arw {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	font-family: var(--ordo-serif);
+	font-size: 16px;
+	line-height: 30px;
+	text-align: center;
+	text-decoration: none;
+	color: #fff;
+	background: var(--ordo-navy);
+	border: 0;
+	border-radius: var(--ordo-radius);
+}
+
+.ordo .ordo-cal__arw:hover {
+	background: var(--ordo-navy2);
+	color: #fff;
+}
+
+.ordo .ordo-cal__yr {
+	width: 82px;
+	font-family: var(--ordo-sc);
+	letter-spacing: 0.06em;
+	font-size: 14px;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+	color: var(--ordo-navy);
+	background: var(--ordo-cream);
+	border: 1px solid var(--ordo-keyline);
+	border-radius: var(--ordo-radius);
+	padding: 6px 8px;
+}
+
+.ordo .ordo-cal__scroll {
+	overflow-x: auto;
+}
+
+.ordo .ordo-cal__dow {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 6px;
+	margin-bottom: 6px;
+	min-width: 700px;
+}
+
+.ordo .ordo-cal__dow span {
+	text-align: center;
+	font-family: var(--ordo-sc);
+	font-size: 11px;
+	letter-spacing: 0.14em;
+	color: var(--ordo-gold-ink);
+	padding-bottom: 2px;
+}
+
+.ordo .ordo-cal__grid {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 6px;
+	min-width: 700px;
+}
+
+.ordo .ordo-cal__cell {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	aspect-ratio: 1 / 1;
+	padding: 6px 7px;
+	background: var(--ordo-cream);
+	border: 1px solid var(--ordo-keyline);
+	border-left-width: 4px;
+	border-radius: 2px;
+	text-decoration: none;
+	transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.ordo a.ordo-cal__cell:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 18px -10px rgba(11, 29, 74, 0.5);
+}
+
+.ordo .ordo-cal__n {
+	font-family: var(--ordo-serif);
+	font-size: 17px;
+	line-height: 1;
+	color: var(--ordo-navy);
+	font-variant-numeric: tabular-nums;
+}
+
+.ordo .ordo-cal__f {
+	margin-top: 2px;
+	font-size: 10.5px;
+	line-height: 1.16;
+	color: var(--ordo-ink);
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.ordo .ordo-cal__rk {
+	position: absolute;
+	top: 6px;
+	right: 7px;
+	font-family: var(--ordo-serif);
+	font-size: 11px;
+	font-weight: 700;
+	color: var(--ordo-gold-ink);
+}
+
+.ordo .ordo-cal__tag {
+	position: absolute;
+	bottom: 4px;
+	left: 7px;
+	font-family: var(--ordo-sc);
+	font-size: 8px;
+	letter-spacing: 0.12em;
+	color: var(--ordo-navy);
+}
+
+.ordo .ordo-cal__cell--out {
+	background: transparent;
+	border-color: transparent;
+	border-left-color: transparent;
+}
+
+.ordo .ordo-cal__cell--out .ordo-cal__n,
+.ordo .ordo-cal__cell--out .ordo-cal__f {
+	color: #bcb59c;
+}
+
+.ordo .ordo-cal__cell.ordo-wl-white,
+.ordo .ordo-cal__ag.ordo-wl-white {
+	border-left-color: var(--ordo-gold);
+}
+
+.ordo .ordo-cal__cell.ordo-wl-red,
+.ordo .ordo-cal__ag.ordo-wl-red {
+	border-left-color: var(--ordo-lit-red);
+}
+
+.ordo .ordo-cal__cell.ordo-wl-green,
+.ordo .ordo-cal__ag.ordo-wl-green {
+	border-left-color: var(--ordo-lit-green);
+}
+
+.ordo .ordo-cal__cell.ordo-wl-violet,
+.ordo .ordo-cal__ag.ordo-wl-violet {
+	border-left-color: var(--ordo-lit-violet);
+}
+
+.ordo .ordo-cal__cell.ordo-wl-black,
+.ordo .ordo-cal__ag.ordo-wl-black {
+	border-left-color: var(--ordo-lit-black);
+}
+
+.ordo .ordo-cal__cell.ordo-wl-rose,
+.ordo .ordo-cal__ag.ordo-wl-rose {
+	border-left-color: var(--ordo-lit-rose);
+}
+
+.ordo .ordo-cal__cell.ordo-is-first {
+	background: var(--ordo-paper);
+	box-shadow: 0 0 0 1px var(--ordo-gold) inset;
+}
+
+.ordo .ordo-cal__cell.ordo-is-first .ordo-cal__f {
+	font-weight: 600;
+	color: var(--ordo-navy);
+}
+
+.ordo .ordo-cal__cell.ordo-is-today {
+	background: #fff;
+	box-shadow: 0 0 0 2px var(--ordo-navy);
+}
+
+/* ── month grid: mobile agenda ── */
+.ordo .ordo-cal__agenda {
+	display: none;
+}
+
+.ordo .ordo-cal__ag {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 9px 4px;
+	border-bottom: 1px solid #efe7d4;
+	border-left: 4px solid var(--ordo-keyline);
+	text-decoration: none;
+}
+
+.ordo .ordo-cal__ag.ordo-is-today {
+	background: #fff;
+	border-left-color: var(--ordo-navy);
+	box-shadow: inset 0 0 0 1px var(--ordo-gold);
+}
+
+.ordo .ordo-cal__agd {
+	flex: none;
+	width: 44px;
+	text-align: center;
+}
+
+.ordo .ordo-cal__agw {
+	display: block;
+	font-family: var(--ordo-sc);
+	font-size: 9px;
+	letter-spacing: 0.1em;
+	color: var(--ordo-muted);
+}
+
+.ordo .ordo-cal__agn {
+	font-family: var(--ordo-serif);
+	font-size: 19px;
+	line-height: 1;
+	color: var(--ordo-navy);
+	font-variant-numeric: tabular-nums;
+}
+
+.ordo .ordo-cal__agf {
+	flex: 1;
+	font-family: var(--ordo-serif);
+	font-size: 15px;
+	line-height: 1.15;
+	color: var(--ordo-ink);
+}
+
+.ordo .ordo-cal__agr {
+	font-family: var(--ordo-serif);
+	font-weight: 700;
+	font-size: 12px;
+	color: var(--ordo-gold-ink);
+}
+
+@media (max-width: 640px) {
+	.ordo .ordo-cal__scroll {
+		display: none;
+	}
+
+	.ordo .ordo-cal__agenda {
+		display: block;
+	}
+}
+
+/* ── day view: shared body, pretty page & modal ── */
+.ordo .ordo-daypage {
+	max-width: 640px;
+	margin: 0 auto;
+}
+
+.ordo .ordo-daypage__eyebrow {
+	font-family: var(--ordo-sc);
+	font-size: 12px;
+	letter-spacing: 0.14em;
+	color: var(--ordo-oxblood);
+	margin-bottom: 6px;
+}
+
+.ordo .ordo-day__rankline {
+	font-family: var(--ordo-sc);
+	font-size: 11px;
+	letter-spacing: 0.16em;
+	color: var(--ordo-oxblood);
+}
+
+.ordo .ordo-day__feast {
+	font-family: var(--ordo-serif);
+	font-weight: 600;
+	font-size: 30px;
+	line-height: 1.05;
+	color: var(--ordo-navy);
+	margin: 4px 0 12px;
+	text-wrap: balance;
+}
+
+.ordo .ordo-day__cols {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 22px;
+	margin-top: 14px;
+}
+
+.ordo .ordo-day__h {
+	font-family: var(--ordo-sc);
+	font-size: 11px;
+	letter-spacing: 0.14em;
+	font-weight: 600;
+	color: var(--ordo-gold-ink);
+	margin: 0 0 7px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid var(--ordo-keyline);
+}
+
+.ordo .ordo-day__commems {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.ordo .ordo-day__commems li {
+	display: flex;
+	gap: 8px;
+	align-items: baseline;
+	font-family: var(--ordo-serif);
+	font-size: 15px;
+	color: var(--ordo-ink);
+}
+
+.ordo .ordo-day__none {
+	margin: 0;
+	font-size: 13px;
+	color: var(--ordo-muted);
+}
+
+.ordo .ordo-day__facts {
+	margin: 0;
+}
+
+.ordo .ordo-day__fact {
+	display: flex;
+	gap: 8px;
+	padding: 5px 0;
+	border-top: 1px solid var(--ordo-keyline);
+}
+
+.ordo .ordo-day__fact:first-child {
+	border-top: 0;
+}
+
+.ordo .ordo-day__fact dt {
+	flex: 0 0 84px;
+	font-family: var(--ordo-sc);
+	font-size: 10px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--ordo-muted);
+	padding-top: 2px;
+}
+
+.ordo .ordo-day__fact dd {
+	margin: 0;
+	font-size: 13.5px;
+	color: var(--ordo-ink);
+}
+
+@media (max-width: 560px) {
+	.ordo .ordo-day__cols {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ── day view: modal ── */
+.ordo .ordo-modal-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: 5vh 16px;
+	overflow-y: auto;
+	background: rgba(11, 29, 74, 0.55);
+}
+
+.ordo .ordo-modal-backdrop[hidden] {
+	display: none;
+}
+
+.ordo .ordo-modal {
+	width: 100%;
+	max-width: 640px;
+	background: var(--ordo-paper);
+	border: 1px solid var(--ordo-navy);
+	border-radius: var(--ordo-radius);
+	overflow: hidden;
+	box-shadow: 0 26px 64px -22px rgba(11, 29, 74, 0.7);
+}
+
+.ordo .ordo-modal:focus {
+	outline: none;
+}
+
+.ordo .ordo-modal__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 11px 16px;
+	background: var(--ordo-navy);
+	color: #eef2fa;
+}
+
+.ordo .ordo-modal__barlabel {
+	font-family: var(--ordo-sc);
+	letter-spacing: 0.08em;
+	font-size: 12px;
+	color: var(--ordo-gold2);
+}
+
+.ordo .ordo-modal__close {
+	width: 26px;
+	height: 26px;
+	border-radius: 2px;
+	border: 1px solid rgba(216, 192, 138, 0.4);
+	background: transparent;
+	color: #eef2fa;
+	cursor: pointer;
+	font-size: 13px;
+	line-height: 1;
+}
+
+.ordo .ordo-modal__close:hover {
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.ordo .ordo-modal__title {
+	margin: 0;
+	padding: 18px 22px 0;
+	font-family: var(--ordo-serif);
+	font-weight: 600;
+	font-size: 28px;
+	line-height: 1.05;
+	color: var(--ordo-navy);
+	text-wrap: balance;
+}
+
+.ordo .ordo-modal__body {
+	padding: 6px 22px 18px;
+}
+
+/* The modal names the feast in its own title, so the shared body hides its heading. */
+.ordo .ordo-modal__body .ordo-day__feast {
+	display: none;
+}
+
+.ordo .ordo-strip--nav {
+	border-radius: 0;
+	border-top: 1px solid var(--ordo-keyline);
+}
+
+.ordo .ordo-strip--nav .ordo-strip__chev {
+	display: block;
+}
+
+.ordo .ordo-strip--nav .ordo-strip__win {
+	overflow: hidden;
+}
+
+.ordo .ordo-strip--nav .ordo-strip__track {
+	transition: none;
+}
+
+.ordo .ordo-strip--nav .ordo-strip__day {
+	flex: 1 1 0;
+	min-width: 0;
+}
+
+.ordo .ordo-strip--nav .ordo-strip__day.ordo-is-current {
+	background: linear-gradient(180deg, rgba(201, 164, 79, 0.2), rgba(201, 164, 79, 0.04));
+}
+
+.ordo .ordo-strip--nav .ordo-strip__day.ordo-is-current::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 3px;
+	background: var(--ordo-gold2);
+}
+
+.ordo .ordo-strip--nav .ordo-strip__day.ordo-is-current .ordo-strip__wd,
+.ordo .ordo-strip--nav .ordo-strip__day.ordo-is-current .ordo-strip__dd {
+	color: var(--ordo-gold2);
+}
+
+/* Lock background scroll while the modal is open (class set on <html>). */
+.ordo-modal-open {
+	overflow: hidden;
+}
+
 /* ── focus & motion ── */
 .ordo a:focus-visible,
-.ordo button:focus-visible {
+.ordo button:focus-visible,
+.ordo input:focus-visible {
 	outline: 2px solid var(--ordo-gold2);
 	outline-offset: 2px;
 }
