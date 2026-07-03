@@ -1,0 +1,10 @@
+Introibo Core — vendored into this plugin (do not edit these files by hand).
+
+version: 0.4.0
+ref:     cf556457864d4ffa38642d349d91fd91f6eb2474
+source:  https://github.com/Introibo-App/Core
+vendored: 2026-07-03
+
+Regenerate with:  php bin/vendor-core.php
+Core is licensed AGPL-3.0-or-later (see LICENSE in this directory); the plugin
+itself is GPL-2.0-or-later. The corpus under data/corpus/ is CC0.

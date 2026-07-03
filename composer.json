@@ -1,15 +1,69 @@
 {
     "name": "introibo/ordo",
-    "description": "Ordo: a WordPress plugin presenting the traditional Roman liturgical calendar (bundles the Introibo engine).",
+    "description": "Ordo: a WordPress plugin presenting the traditional Roman liturgical calendar (bundles the clean-room Introibo engine).",
     "type": "wordpress-plugin",
-    "license": "AGPL-3.0-or-later",
+    "license": "GPL-2.0-or-later",
+    "keywords": [
+        "wordpress",
+        "wordpress-plugin",
+        "liturgical",
+        "calendar",
+        "catholic",
+        "ordo"
+    ],
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "ext-json": "*"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.10",
         "phpstan/phpstan": "^1.12",
-        "wp-coding-standards/wpcs": "^3.1",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "phpunit/phpunit": "^9.6",
+        "squizlabs/php_codesniffer": "^3.10",
         "szepeviktor/phpstan-wordpress": "^1.3"
-    }
+    },
+    "autoload": {
+        "psr-4": {
+            "Introibo\\Ordo\\": "src/",
+            "Introibo\\Core\\": "src/Core/src/"
+        },
+        "files": [
+            "src/Core/src/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Introibo\\Ordo\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "analyse": "phpstan analyse",
+        "test": "phpunit",
+        "guard": "@php bin/check-no-old-engine.php",
+        "check": [
+            "@lint",
+            "@analyse",
+            "@guard",
+            "@test"
+        ]
+    },
+    "scripts-descriptions": {
+        "lint": "Check coding standards (PSR-12) with PHP_CodeSniffer.",
+        "lint:fix": "Auto-fix coding-standard violations with phpcbf.",
+        "analyse": "Run PHPStan static analysis at the configured level.",
+        "test": "Run the PHPUnit test suite.",
+        "guard": "Fail if any old-engine reference is present (clean-room guard).",
+        "check": "Run all quality gates locally (lint + analyse + guard + test)."
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        },
+        "sort-packages": true,
+        "allow-plugins": {}
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }

@@ -1,0 +1,99 @@
+{
+  "corpusVersion": "1962-2026-07-02.1",
+  "editions": [
+    "roman-rubricae-1960"
+  ],
+  "files": {
+    "editions/roman-rubricae-1960/attributes.sanctorale.ndjson": {
+      "primaryKey": "id",
+      "records": 302,
+      "sha256": "f11a882840845ecf67a5975e0414e6cabc8bc4e0be840868f30871ba678b6135"
+    },
+    "editions/roman-rubricae-1960/attributes.temporale.ndjson": {
+      "primaryKey": "archetype",
+      "records": 61,
+      "sha256": "9055c7a938e76d322cf654ca2d24dbe1d83c2d07fa5e526647c53adfbb3fc82a"
+    },
+    "editions/roman-rubricae-1960/placement.sanctorale.ndjson": {
+      "primaryKey": "id",
+      "records": 302,
+      "sha256": "3e2667eca77d6878e2e696d81fe62a12bd4c8db0a508fbebc5aff5145155207b"
+    },
+    "editions/roman-rubricae-1960/precedence-rules.ndjson": {
+      "primaryKey": "rule",
+      "records": 10,
+      "sha256": "4ee75bf99c596be2693537a47e110ab10455f1016e31ba231f4b8830fc370b39"
+    },
+    "editions/roman-rubricae-1960/precedence-tiers.ndjson": {
+      "primaryKey": "selector",
+      "records": 24,
+      "sha256": "78f0ab37a422bfcffe41ef17fc1785bd04ea71ba177c9e1836791da6ffeb26b4"
+    },
+    "identity/sanctorale.ndjson": {
+      "primaryKey": "id",
+      "records": 302,
+      "sha256": "d4d38838edc947b815aba5a79621941b8978cc002410df002053a6c9d4b59c1b"
+    },
+    "identity/temporale.ndjson": {
+      "primaryKey": "archetype",
+      "records": 61,
+      "sha256": "8f1b5d79c66b17fe17b44c6618cbe76c20d9ccf0c14c1a2383a086eb3f3b4477"
+    },
+    "overlays/sspx/operations.ndjson": {
+      "primaryKey": "target",
+      "records": 2,
+      "sha256": "0291eae1cf60a446de17aa98681588c2b57c2b65730ccaeb9a2d0f3463341354"
+    },
+    "overlays/sspx/overlay.json": {
+      "primaryKey": "id",
+      "records": 1,
+      "sha256": "6a25b3b7d7f4f42f8f2503ecdf9237ccb603e21180925ddc915ddbc97f579277"
+    },
+    "sources.ndjson": {
+      "primaryKey": "key",
+      "records": 3,
+      "sha256": "1e8a341d6c754e469c53eaa541e28cff3452a5338490d7932c7be18d760dc64e"
+    },
+    "temporal/block-seasons.ndjson": {
+      "primaryKey": "block",
+      "records": 9,
+      "sha256": "fa6eca2c29f81659dd8e41f09f7ae1af8fbee89be6b1e2c45f11ba4767a4e84e"
+    },
+    "temporal/easter-offsets.ndjson": {
+      "primaryKey": "slot",
+      "records": 30,
+      "sha256": "47b672d23649d479af21e20ff72a6b156f43ad604d660c8c18e0365bd1a722bd"
+    }
+  },
+  "generator": "@introibo/corpus-generator",
+  "license": "CC0-1.0",
+  "overlays": [
+    "sspx"
+  ],
+  "sources": [
+    {
+      "key": "mr-1920",
+      "kind": "text",
+      "rights": "public-domain",
+      "title": "Missale Romanum, editio typica",
+      "urn": "introibo:source:mr-1920",
+      "uses": 363
+    },
+    {
+      "key": "rg-1960",
+      "kind": "reference",
+      "rights": "reference",
+      "title": "Rubricae Generales / Codex Rubricarum (1960)",
+      "urn": "introibo:source:rg-1960",
+      "uses": 1403
+    },
+    {
+      "key": "sspx-ordo",
+      "kind": "reference",
+      "rights": "reference",
+      "title": "Society of St Pius X — Ordo (Rubricae 1960 / 1962), District of the USA",
+      "urn": "introibo:source:sspx-ordo",
+      "uses": 2
+    }
+  ]
+}
