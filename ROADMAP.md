@@ -1,23 +1,30 @@
 # Roadmap
 
 _A plain-language overview of where Ordo is headed. Each version links to its tracking milestone and
-the issues that make it up (issue links are added once the backlog is imported)._
+the issues that make it up._
 
-_Last updated: 2026-07-02_
+_Last updated: 2026-07-03._
 
 ## Release train
 - **R1 — Groundwork.** The standalone plugin bundling the finished 1962 engine, ahead of any thin-client
   work.
-- **R2 — 3mi.org.** The plugin ships with the **SSPX** default preset for the **3mi.org pilot
-  deployment** — the platform's first live surface.
+- **R2 — 3mi.org.** The plugin ships defaulting to **Universal 1962**; the **3mi.org** pilot **selects the
+  SSPX preset** in its settings — the platform's first live surface. SSPX is a per-site setting, not the
+  shipped default: one build serves every parish.
 - **R3+.** Everything else, in the build order below.
 
-## 🚧 In progress — [v0.1.0](https://github.com/Introibo-App/Ordo/milestone/1)
-**Standalone plugin — the 3mi.org pilot.** A self-contained MVP that bundles the Introibo Core engine
-with the **SSPX default preset** for the **3mi.org pilot deployment (R2)**: the masthead calendar strip,
-`[ordo_today]`, `[ordo_calendar]` (full month grid), the day view (REST modal + shareable pretty pages),
-and a settings screen. The interface is re-implemented from the established design, **with mockups
-approved before any UI is built**.
+## 🚧 v0.1.0 — [code-complete; the pilot deploy remains](https://github.com/Introibo-App/Ordo/milestone/1)
+**Standalone plugin — the 3mi.org pilot.** A self-contained MVP that bundles the Introibo Core engine and
+resolves every day offline (no API): the masthead calendar strip, `[ordo_today]`, `[ordo_calendar]` (full
+month grid), the day view (a REST-served modal plus shareable `/ordo/YYYY-MM-DD/` pretty pages), and a
+tabbed settings screen — each as both a shortcode and a block, with i18n, `filemtime` cache-busting,
+rewrite rules, and the full activation lifecycle. The interface was built to **per-surface mockups approved
+before any UI**.
+
+**All build epics are merged** — #1 scaffold & lifecycle · #6 mockups · #11 today & masthead · #15 calendar
+& day view · #20 settings, i18n & assets. The one remaining item is **[#99](https://github.com/Introibo-App/Ordo/issues/99)
+— the live install on the 3mi.org refresh** (select SSPX, verify every surface, cross-check the SSPX ordo):
+a **maintainer step** that needs access to the WordPress site.
 
 ## 🗓️ Next — [v0.2.0](https://github.com/Introibo-App/Ordo/milestone/2)
 **Thin client.** Replace the bundled engine with Introibo API calls, cache responses in WP transients
@@ -40,4 +47,4 @@ approved before any UI is built**.
   embeddable comparison widget (mockups-gated).
 
 ## ✅ Released
-_None yet._
+_None yet — v0.1.0 is code-complete and awaiting its pilot deployment on 3mi.org._
