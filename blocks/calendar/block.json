@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ordo/calendar",
+	"version": "0.1.0",
+	"title": "Ordo — Month calendar",
+	"category": "widgets",
+	"icon": "calendar-alt",
+	"description": "A month grid of liturgical days; each day opens its day view.",
+	"keywords": ["ordo", "liturgical", "calendar", "month", "grid"],
+	"textdomain": "ordo",
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"year": {
+			"type": "string",
+			"default": ""
+		},
+		"month": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"editorScript": "ordo-block-calendar",
+	"style": "ordo",
+	"editorStyle": "ordo",
+	"viewScript": "ordo-modal"
+}

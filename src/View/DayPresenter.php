@@ -21,9 +21,13 @@ final class DayPresenter
     private string $feastLatin;
     private string $rankRoman;
     private int $rankOrdinal;
+    private string $kind;
     private string $colour;
     private string $seasonToken;
     private string $temporaId;
+    private string $temporalName;
+    /** @var list<array{name: string, colour: string, kindLabel: string}> */
+    private array $commemorations;
 
     /**
      * @param array<string, mixed> $contract A day contract as returned by the engine boundary.
@@ -36,10 +40,13 @@ final class DayPresenter
         $this->feastLatin = self::nestedString($celebration, 'names', 'la');
         $this->rankRoman = self::string($celebration['rank'] ?? '');
         $this->rankOrdinal = (int) ($celebration['rankOrdinal'] ?? 4);
+        $this->kind = self::string($celebration['kind'] ?? '');
         $this->colour = Palette::normalise(self::nestedString($celebration, 'colour', 'base'));
 
         $this->seasonToken = self::string($contract['season'] ?? '');
         $this->temporaId = self::firstTemporaId($contract);
+        $this->temporalName = self::firstTemporaName($contract);
+        $this->commemorations = self::readCommemorations($contract);
     }
 
     public function date(): DateTimeImmutable
@@ -79,6 +86,70 @@ final class DayPresenter
     public function colour(): string
     {
         return $this->colour;
+    }
+
+    /** The coarse contract kind ("feast", "feria", "sunday", …); "" when absent. */
+    public function kind(): string
+    {
+        return $this->kind;
+    }
+
+    /** The class named in words: "First class" … "Fourth class" (or "" if unranked). */
+    public function classLabel(): string
+    {
+        switch ($this->rankOrdinal) {
+            case 1:
+                return __('First class', 'ordo');
+            case 2:
+                return __('Second class', 'ordo');
+            case 3:
+                return __('Third class', 'ordo');
+            case 4:
+                return __('Fourth class', 'ordo');
+            default:
+                return '';
+        }
+    }
+
+    /** The kind named for a reader ("Feast", "Feria", "Sunday", …); "" if unknown. */
+    public function kindLabel(): string
+    {
+        return self::kindToLabel($this->kind);
+    }
+
+    /**
+     * The one-line rank statement shown above the feast in the day view, combining
+     * the class and the kind — e.g. "First class · Feast" — or just the class when
+     * the kind has no reader-facing label.
+     */
+    public function rankLine(): string
+    {
+        $class = $this->classLabel();
+        $kind = $this->kindLabel();
+
+        if ($class !== '' && $kind !== '') {
+            return $class . ' · ' . $kind;
+        }
+
+        return $class !== '' ? $class : $kind;
+    }
+
+    /** The temporal day's Latin name (the feria/Sunday of the season), or "". */
+    public function temporalName(): string
+    {
+        return $this->temporalName;
+    }
+
+    /**
+     * The commemorations of the day: the second (and third) offices and orations
+     * yielded to the winning celebration, each with its name, normalised colour and
+     * reader-facing kind. Empty when the day admits none.
+     *
+     * @return list<array{name: string, colour: string, kindLabel: string}>
+     */
+    public function commemorations(): array
+    {
+        return $this->commemorations;
     }
 
     /** The season as a translated display name, e.g. "Time after Pentecost — 14th week". */
@@ -189,6 +260,80 @@ final class DayPresenter
         }
 
         return '';
+    }
+
+    /**
+     * @param array<string, mixed> $contract
+     */
+    private static function firstTemporaName(array $contract): string
+    {
+        $tempora = $contract['tempora'] ?? null;
+        if (is_array($tempora) && isset($tempora[0]) && is_array($tempora[0])) {
+            return self::nestedString($tempora[0], 'names', 'la');
+        }
+
+        return '';
+    }
+
+    /**
+     * @param array<string, mixed> $contract
+     * @return list<array{name: string, colour: string, kindLabel: string}>
+     */
+    private static function readCommemorations(array $contract): array
+    {
+        $raw = $contract['commemoration'] ?? null;
+        if (!is_array($raw)) {
+            return [];
+        }
+
+        $out = [];
+        foreach ($raw as $entry) {
+            if (!is_array($entry)) {
+                continue;
+            }
+            $name = self::nestedString($entry, 'names', 'la');
+            if ($name === '') {
+                continue;
+            }
+            $out[] = [
+                'name' => $name,
+                'colour' => Palette::normalise(self::nestedString($entry, 'colour', 'base')),
+                'kindLabel' => self::kindToLabel(self::string($entry['kind'] ?? '')),
+            ];
+        }
+
+        return $out;
+    }
+
+    /** Map a contract kind token to a reader-facing label, or "" when unlabelled. */
+    private static function kindToLabel(string $kind): string
+    {
+        switch ($kind) {
+            case 'feast':
+                return __('Feast', 'ordo');
+            case 'feria':
+                return __('Feria', 'ordo');
+            case 'sunday':
+                return __('Sunday', 'ordo');
+            case 'vigil':
+                return __('Vigil', 'ordo');
+            case 'octave-day':
+                return __('Octave day', 'ordo');
+            case 'within-octave':
+                return __('Within the octave', 'ordo');
+            case 'ember-day':
+                return __('Ember day', 'ordo');
+            case 'rogation-day':
+                return __('Rogation day', 'ordo');
+            case 'commemoration-only':
+                return __('Commemoration', 'ordo');
+            case 'lady-on-saturday':
+                return __('Our Lady on Saturday', 'ordo');
+            case 'office-of-the-dead':
+                return __('Office of the Dead', 'ordo');
+            default:
+                return '';
+        }
     }
 
     /**

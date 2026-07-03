@@ -49,7 +49,8 @@ final class TodayCard
 
         $html .= ContextChip::render($context);
 
-        $html .= '<a class="ordo-today__link" href="' . esc_url($dayUrl) . '">'
+        $html .= '<a class="ordo-today__link" href="' . esc_url($dayUrl) . '"'
+            . ' data-ordo-day="' . esc_attr($day->isoDate()) . '">'
             . esc_html__('Open the day', 'ordo')
             . ' <span class="ordo-today__arrow" aria-hidden="true">&rarr;</span>'
             . '</a>';

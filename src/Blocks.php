@@ -34,5 +34,8 @@ final class Blocks
         register_block_type(ORDO_DIR . 'blocks/calendar-strip', [
             'render_callback' => [$this->shortcodes, 'renderStrip'],
         ]);
+        register_block_type(ORDO_DIR . 'blocks/calendar', [
+            'render_callback' => [$this->shortcodes, 'renderCalendar'],
+        ]);
     }
 }

@@ -45,10 +45,28 @@ final class LatinCalendar
         7 => 'Dominica',
     ];
 
+    /** Season token → its Latin name as the ordo heads a month ("Tempus post Pentecosten"). */
+    private const SEASONS_LATIN = [
+        'advent' => 'Tempus Adventus',
+        'christmastide' => 'Tempus Nativitatis',
+        'epiphany' => 'Tempus post Epiphaniam',
+        'septuagesima' => 'Tempus Septuagesimae',
+        'lent' => 'Tempus Quadragesimae',
+        'passiontide' => 'Tempus Passionis',
+        'eastertide' => 'Tempus Paschale',
+        'pentecost' => 'Tempus post Pentecosten',
+    ];
+
     /** The weekday named as a feria: "Dominica", "Feria V", "Sabbato". */
     public static function feria(DateTimeInterface $date): string
     {
         return self::FERIAE[(int) $date->format('N')];
+    }
+
+    /** A season token's Latin name for a calendar heading, or "" if unrecognised. */
+    public static function seasonLatin(string $token): string
+    {
+        return self::SEASONS_LATIN[$token] ?? '';
     }
 
     /** The date in the genitive with a Roman-numeral year: "3 Septembris mmxxvi". */

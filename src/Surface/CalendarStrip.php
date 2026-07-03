@@ -73,7 +73,8 @@ final class CalendarStrip
         $tab = 'background:var(' . esc_attr(Palette::onVar($day->colour())) . ')';
         $when = LatinCalendar::feria($day->date()) . ' · ' . LatinCalendar::dateGenitive($day->date());
 
-        $html = '<div class="ordo"><a class="ordo-ribbon" href="' . esc_url($url) . '">';
+        $html = '<div class="ordo"><a class="ordo-ribbon" href="' . esc_url($url) . '"'
+            . ' data-ordo-day="' . esc_attr($day->isoDate()) . '">';
         $html .= '<span class="ordo-ribbon__tab ordo-ribbon__tab--left" style="' . $tab . '"></span>';
         $html .= '<span class="ordo-ribbon__tab ordo-ribbon__tab--right" style="' . $tab . '"></span>';
         $html .= '<span class="ordo-ribbon__gem" style="' . $tab . '"></span>';
@@ -99,6 +100,7 @@ final class CalendarStrip
 
         return '<a class="' . esc_attr($classes) . '" href="' . esc_url($url) . '"'
             . ($isToday ? ' aria-current="date"' : '')
+            . ' data-ordo-day="' . esc_attr($day->isoDate()) . '"'
             . ' data-ordo-today="' . ($isToday ? '1' : '0') . '">'
             . '<span class="ordo-strip__wd">' . esc_html(strtoupper($day->date()->format('D'))) . '</span>'
             . '<span class="ordo-strip__dd">' . esc_html($day->date()->format('j')) . '</span>'

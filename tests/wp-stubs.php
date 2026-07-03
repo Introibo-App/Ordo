@@ -71,10 +71,49 @@ if (!function_exists('home_url')) {
     }
 }
 
+if (!function_exists('date_i18n')) {
+    /**
+     * @param int|false $timestamp
+     */
+    function date_i18n(string $format, $timestamp = false): string
+    {
+        return gmdate($format, $timestamp === false ? time() : (int) $timestamp);
+    }
+}
+
 if (!function_exists('get_option')) {
     function get_option($name, $default = false)
     {
         return $GLOBALS['__ordo_options'][$name] ?? $default;
+    }
+}
+
+if (!function_exists('get_permalink')) {
+    /**
+     * @param int|object $post
+     * @return string
+     */
+    function get_permalink($post = 0)
+    {
+        return 'https://example.test/calendar/';
+    }
+}
+
+if (!function_exists('add_query_arg')) {
+    /**
+     * A minimal stand-in for the array form the plugin uses: add_query_arg($args, $url).
+     *
+     * @param array<string, int|string>|string $args
+     * @param string                           $url
+     */
+    function add_query_arg($args, $url = ''): string
+    {
+        if (!is_array($args)) {
+            return (string) $url;
+        }
+        $separator = strpos((string) $url, '?') !== false ? '&' : '?';
+
+        return (string) $url . $separator . http_build_query($args);
     }
 }
 
@@ -111,5 +150,40 @@ if (!function_exists('wp_enqueue_style')) {
 if (!function_exists('wp_enqueue_script')) {
     function wp_enqueue_script($handle, $src = '', $deps = [], $ver = false, $in_footer = false): void
     {
+    }
+}
+
+if (!function_exists('wp_localize_script')) {
+    /**
+     * @param array<string, mixed> $l10n
+     */
+    function wp_localize_script($handle, $object_name, $l10n): bool
+    {
+        return true;
+    }
+}
+
+if (!function_exists('rest_url')) {
+    function rest_url($path = ''): string
+    {
+        return 'https://example.test/wp-json/' . ltrim((string) $path, '/');
+    }
+}
+
+if (!function_exists('esc_url_raw')) {
+    function esc_url_raw($url): string
+    {
+        return (string) $url;
+    }
+}
+
+if (!function_exists('add_action')) {
+    /**
+     * @param string $hook
+     * @param mixed  $callback
+     */
+    function add_action($hook, $callback, $priority = 10, $accepted_args = 1): bool
+    {
+        return true;
     }
 }

@@ -7,8 +7,10 @@ namespace Introibo\Ordo;
 use DateTimeImmutable;
 use Introibo\Ordo\Engine\Core;
 use Introibo\Ordo\Support\Clock;
+use Introibo\Ordo\Support\IsoDate;
 use Introibo\Ordo\Surface\CalendarStrip;
 use Introibo\Ordo\Surface\Context;
+use Introibo\Ordo\Surface\MonthGrid;
 use Introibo\Ordo\Surface\TodayCard;
 use Introibo\Ordo\View\DayPresenter;
 
@@ -35,6 +37,7 @@ final class Shortcodes
     {
         add_shortcode('ordo_today', [$this, 'renderToday']);
         add_shortcode('ordo_calendar_strip', [$this, 'renderStrip']);
+        add_shortcode('ordo_calendar', [$this, 'renderCalendar']);
     }
 
     /**
@@ -46,6 +49,7 @@ final class Shortcodes
     {
         $atts = shortcode_atts(['date' => ''], self::attributes($atts), 'ordo_today');
         $this->assets->enqueueStyle();
+        $this->assets->enqueueModal();
 
         $context = Context::current();
         $today = Clock::today();
@@ -70,6 +74,7 @@ final class Shortcodes
             'ordo_calendar_strip'
         );
         $this->assets->enqueueStyle();
+        $this->assets->enqueueModal();
 
         $context = Context::current();
         $today = Clock::today();
@@ -93,10 +98,116 @@ final class Shortcodes
         );
     }
 
+    /**
+     * The [ordo_calendar] month grid — `ordo/calendar` block.
+     *
+     * The displayed month comes from the page query string (so month navigation is a
+     * plain link and each month is shareable), falling back to the shortcode's
+     * year/month attributes, then to the current month.
+     *
+     * @param array<string, mixed>|string $atts shortcode or block attributes
+     */
+    public function renderCalendar($atts = []): string
+    {
+        $atts = shortcode_atts(['year' => '', 'month' => ''], self::attributes($atts), 'ordo_calendar');
+        $this->assets->enqueueStyle();
+        $this->assets->enqueueModal();
+
+        $context = Context::current();
+        $today = Clock::today();
+        [$year, $month] = self::resolveMonth((string) $atts['year'], (string) $atts['month'], $today);
+
+        $baseUrl = self::currentUrl();
+        $navUrl = static function (int $navYear, int $navMonth) use ($baseUrl): string {
+            return add_query_arg(
+                [MonthGrid::QV_YEAR => $navYear, MonthGrid::QV_MONTH => $navMonth],
+                $baseUrl
+            ) . '#ordo-cal';
+        };
+
+        return MonthGrid::render(
+            $this->engine,
+            $context,
+            $year,
+            $month,
+            $today,
+            [self::class, 'dayUrl'],
+            $navUrl,
+            $baseUrl
+        );
+    }
+
     /** Build the /ordo/YYYY-MM-DD/ permalink for a day (public: used as a callback). */
     public static function dayUrl(string $iso): string
     {
         return home_url('/ordo/' . $iso . '/');
+    }
+
+    /**
+     * Resolve the month to display: the query string wins, then attributes, then the
+     * current month, so navigation is shareable but an embed can still set a start.
+     *
+     * @return array{0: int, 1: int} the [year, month] to render
+     */
+    private static function resolveMonth(string $attYear, string $attMonth, DateTimeImmutable $today): array
+    {
+        $fromQuery = self::monthFromQuery();
+        if ($fromQuery !== null) {
+            return $fromQuery;
+        }
+
+        if ($attYear !== '' && $attMonth !== '') {
+            $fromAtts = self::validateYearMonth($attYear, $attMonth);
+            if ($fromAtts !== null) {
+                return $fromAtts;
+            }
+        }
+
+        return [(int) $today->format('Y'), (int) $today->format('n')];
+    }
+
+    /**
+     * The month named by the ?ordo_y=&ordo_m= query string, if both are valid.
+     *
+     * @return array{0: int, 1: int}|null
+     */
+    private static function monthFromQuery(): ?array
+    {
+        $rawYear = $_GET[MonthGrid::QV_YEAR] ?? null;
+        $rawMonth = $_GET[MonthGrid::QV_MONTH] ?? null;
+        if (!is_string($rawYear) || !is_string($rawMonth)) {
+            return null;
+        }
+
+        return self::validateYearMonth($rawYear, $rawMonth);
+    }
+
+    /**
+     * Validate a year/month pair against the resolvable range and 1–12 months.
+     *
+     * @return array{0: int, 1: int}|null
+     */
+    private static function validateYearMonth(string $year, string $month): ?array
+    {
+        if (preg_match('/^\d{1,4}$/', $year) !== 1 || preg_match('/^\d{1,2}$/', $month) !== 1) {
+            return null;
+        }
+
+        $y = (int) $year;
+        $m = (int) $month;
+        if ($m < 1 || $m > 12 || $y < IsoDate::MIN_YEAR || $y > IsoDate::MAX_YEAR) {
+            return null;
+        }
+
+        return [$y, $m];
+    }
+
+    /** The current page's permalink, used as the base for month navigation links. */
+    private static function currentUrl(): string
+    {
+        $permalink = get_permalink();
+
+        return is_string($permalink) && $permalink !== '' ? $permalink : home_url('/');
     }
 
     /**
