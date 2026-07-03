@@ -1,0 +1,368 @@
+/*!
+ * Ordo — Illuminated Breviary surfaces (today card, masthead strip, ribbon).
+ * Design tokens adopted from the 3mi.org / Mary Michael Machabee design system.
+ * Everything is scoped under .ordo and prefixed so nothing touches the host theme;
+ * the custom properties inherit to every descendant surface.
+ */
+.ordo {
+	--ordo-navy: #0b1d4a;
+	--ordo-navy2: #16306c;
+	--ordo-ink: #222a35;
+	--ordo-muted: #6f7682;
+	--ordo-gold: #a97f2e;
+	--ordo-gold2: #c9a24a;
+	--ordo-gold-ink: #856420;
+	--ordo-rule: #d8c08a;
+	--ordo-keyline: rgba(169, 127, 46, 0.42);
+	--ordo-oxblood: #7a2e2a;
+	--ordo-cream: #fbf6ec;
+	--ordo-parch: #f4ecdc;
+	--ordo-paper: #fffdf8;
+	--ordo-lit-white: #f7f4ea;
+	--ordo-lit-red: #8f2f2c;
+	--ordo-lit-green: #2f6a45;
+	--ordo-lit-violet: #59397f;
+	--ordo-lit-black: #23252b;
+	--ordo-lit-rose: #cf7fa0;
+	--ordo-on-white: #f4efe2;
+	--ordo-on-red: #d64f43;
+	--ordo-on-green: #54a474;
+	--ordo-on-violet: #9a7ad0;
+	--ordo-on-black: #4b4b58;
+	--ordo-on-rose: #e8a6c4;
+	--ordo-serif: "Cormorant Garamond", "Cormorant", Garamond, "Hoefler Text", Georgia, "Times New Roman", serif;
+	--ordo-sc: "Cormorant SC", "Cormorant Garamond", Garamond, Georgia, serif;
+	--ordo-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--ordo-radius: 3px;
+
+	font-family: var(--ordo-sans);
+	color: var(--ordo-ink);
+	font-size: 15px;
+	line-height: 1.55;
+	-webkit-font-smoothing: antialiased;
+}
+
+.ordo * {
+	box-sizing: border-box;
+}
+
+/* ── shared: chips ── */
+.ordo .ordo-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	margin: 0 0 13px;
+}
+
+.ordo .ordo-context {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 7px;
+	margin: 0;
+}
+
+.ordo .ordo-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	border: 1px solid var(--ordo-keyline);
+	background: var(--ordo-cream);
+	border-radius: 2px;
+	padding: 4px 9px;
+	font-size: 11.5px;
+	line-height: 1.3;
+	color: var(--ordo-ink);
+	white-space: nowrap;
+}
+
+.ordo .ordo-chip__label {
+	font-family: var(--ordo-sc);
+	font-size: 9.5px;
+	letter-spacing: 0.1em;
+	color: var(--ordo-muted);
+}
+
+.ordo .ordo-chip--rank {
+	border-color: var(--ordo-gold);
+	color: var(--ordo-navy);
+	font-weight: 600;
+}
+
+.ordo .ordo-chip__dot {
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2) inset;
+	display: inline-block;
+	flex: none;
+}
+
+/* ── today card ── */
+.ordo .ordo-today {
+	background: var(--ordo-paper);
+	border: 1px solid var(--ordo-keyline);
+	border-top: 3px solid var(--ordo-gold);
+	border-radius: var(--ordo-radius);
+	padding: 19px 20px 17px;
+	max-width: 340px;
+	box-shadow: 0 12px 34px -20px rgba(11, 29, 74, 0.55);
+}
+
+.ordo .ordo-today__eyebrow {
+	font-family: var(--ordo-sc);
+	font-size: 11px;
+	letter-spacing: 0.16em;
+	color: var(--ordo-oxblood);
+}
+
+.ordo .ordo-today__date {
+	color: var(--ordo-muted);
+	font-size: 12.5px;
+	margin-top: 2px;
+}
+
+.ordo .ordo-today__feast {
+	font-family: var(--ordo-serif);
+	font-weight: 600;
+	color: var(--ordo-navy);
+	font-size: 26px;
+	line-height: 1.06;
+	margin: 8px 0 12px;
+	text-wrap: balance;
+}
+
+.ordo .ordo-today__season {
+	font-size: 12.5px;
+	color: var(--ordo-muted);
+	border-top: 1px solid var(--ordo-keyline);
+	padding-top: 11px;
+	margin: 0 0 12px;
+}
+
+.ordo .ordo-today__season b {
+	color: var(--ordo-ink);
+	font-weight: 600;
+}
+
+.ordo .ordo-today .ordo-context {
+	margin: 0 0 13px;
+}
+
+.ordo .ordo-today__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	color: var(--ordo-navy);
+	font-weight: 600;
+	font-size: 13px;
+	text-decoration: none;
+	border-bottom: 1.5px solid var(--ordo-gold);
+	padding-bottom: 1px;
+}
+
+.ordo .ordo-today__link:hover {
+	color: var(--ordo-navy2);
+}
+
+.ordo .ordo-today__arrow {
+	color: var(--ordo-gold-ink);
+}
+
+/* ── masthead week strip ── */
+.ordo .ordo-strip {
+	display: flex;
+	background: var(--ordo-navy);
+	align-items: stretch;
+	border-radius: var(--ordo-radius);
+	overflow: hidden;
+}
+
+.ordo .ordo-strip__chev {
+	display: none;
+	flex: 0 0 44px;
+	background: transparent;
+	border: 0;
+	color: var(--ordo-gold2);
+	font-family: var(--ordo-serif);
+	font-size: 20px;
+	line-height: 1;
+	cursor: pointer;
+	padding: 0;
+}
+
+.ordo .ordo-strip.is-enhanced .ordo-strip__chev {
+	display: block;
+}
+
+.ordo .ordo-strip__chev:hover {
+	background: rgba(255, 255, 255, 0.08);
+	color: #fff;
+}
+
+.ordo .ordo-strip__chev--left {
+	border-right: 1px solid rgba(216, 192, 138, 0.24);
+}
+
+.ordo .ordo-strip__chev--right {
+	border-left: 1px solid rgba(216, 192, 138, 0.24);
+}
+
+.ordo .ordo-strip__win {
+	flex: 1;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: thin;
+}
+
+.ordo .ordo-strip.is-enhanced .ordo-strip__win {
+	overflow: hidden;
+}
+
+.ordo .ordo-strip__track {
+	display: flex;
+	transition: transform 0.22s ease;
+}
+
+.ordo .ordo-strip__day {
+	flex: 0 0 auto;
+	min-width: 78px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1px;
+	text-align: center;
+	padding: 9px 4px 10px;
+	border-right: 1px solid rgba(255, 255, 255, 0.06);
+	background: transparent;
+	cursor: pointer;
+	position: relative;
+	text-decoration: none;
+}
+
+.ordo .ordo-strip__day:hover {
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.ordo .ordo-strip__wd {
+	font-family: var(--ordo-sc);
+	font-size: 10px;
+	letter-spacing: 0.14em;
+	color: #8ca0c6;
+}
+
+.ordo .ordo-strip__dd {
+	font-family: var(--ordo-serif);
+	font-size: 21px;
+	line-height: 1.15;
+	color: #eef2fa;
+	font-variant-numeric: tabular-nums;
+}
+
+.ordo .ordo-strip__fe {
+	font-size: 9.5px;
+	color: #b9c6df;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	padding: 0 2px;
+}
+
+.ordo .ordo-strip__dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	margin-top: 4px;
+	box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28) inset;
+}
+
+.ordo .ordo-strip__day.is-today {
+	background: linear-gradient(180deg, rgba(201, 164, 79, 0.2), rgba(201, 164, 79, 0.04));
+}
+
+.ordo .ordo-strip__day.is-today::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 3px;
+	background: var(--ordo-gold2);
+}
+
+.ordo .ordo-strip__day.is-today .ordo-strip__wd,
+.ordo .ordo-strip__day.is-today .ordo-strip__dd {
+	color: var(--ordo-gold2);
+}
+
+.ordo .ordo-strip + .ordo-context {
+	margin-top: 8px;
+}
+
+/* ── masthead ribbon ── */
+.ordo .ordo-ribbon {
+	display: block;
+	position: relative;
+	background: var(--ordo-navy);
+	text-align: center;
+	font-family: var(--ordo-sc);
+	letter-spacing: 0.14em;
+	font-size: 13px;
+	color: var(--ordo-gold2);
+	padding: 9px 26px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-radius: var(--ordo-radius);
+	text-decoration: none;
+}
+
+.ordo .ordo-ribbon__feast {
+	font-weight: 700;
+	color: var(--ordo-gold2);
+}
+
+.ordo .ordo-ribbon__sep {
+	color: var(--ordo-gold);
+	margin: 0 10px;
+}
+
+.ordo .ordo-ribbon__gem {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	margin: 0 10px 0 0;
+	vertical-align: middle;
+	position: relative;
+	top: -1px;
+	box-shadow: 0 0 0 1.5px var(--ordo-gold2);
+}
+
+.ordo .ordo-ribbon__tab {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 9px;
+}
+
+.ordo .ordo-ribbon__tab--left {
+	left: 0;
+}
+
+.ordo .ordo-ribbon__tab--right {
+	right: 0;
+}
+
+/* ── focus & motion ── */
+.ordo a:focus-visible,
+.ordo button:focus-visible {
+	outline: 2px solid var(--ordo-gold2);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ordo .ordo-strip__track {
+		transition: none;
+	}
+}

@@ -1,0 +1,34 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ordo/calendar-strip",
+	"version": "0.1.0",
+	"title": "Ordo — Calendar strip",
+	"category": "widgets",
+	"icon": "schedule",
+	"description": "A rolling week of liturgical days, centred on today; slides a day at a time.",
+	"keywords": ["ordo", "liturgical", "calendar", "week", "masthead"],
+	"textdomain": "ordo",
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"attributes": {
+		"date": {
+			"type": "string",
+			"default": ""
+		},
+		"days": {
+			"type": "string",
+			"default": "15"
+		},
+		"variant": {
+			"type": "string",
+			"default": "week"
+		}
+	},
+	"editorScript": "ordo-block-strip",
+	"style": "ordo",
+	"editorStyle": "ordo",
+	"viewScript": "ordo-strip"
+}
