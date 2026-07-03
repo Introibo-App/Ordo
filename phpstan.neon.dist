@@ -1,0 +1,17 @@
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+parameters:
+    level: 6
+    paths:
+        - ordo.php
+        - uninstall.php
+        - bin
+        - src
+        - tests
+    excludePaths:
+        - src/Core/*
+    scanDirectories:
+        - src/Core/src
+    bootstrapFiles:
+        - phpstan-bootstrap.php

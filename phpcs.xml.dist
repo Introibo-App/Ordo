@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<ruleset name="introibo-ordo">
+    <description>Coding standard for introibo/ordo: PSR-12.</description>
+
+    <!-- Scan the plugin bootstrap, its source, maintainer scripts, and the tests. -->
+    <file>ordo.php</file>
+    <file>uninstall.php</file>
+    <file>bin</file>
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- The vendored Core engine is a generated copy, linted upstream in its own repo. -->
+    <exclude-pattern>*/src/Core/*</exclude-pattern>
+
+    <!-- Report paths relative to the project root; run in parallel with colour. -->
+    <arg name="basepath" value="."/>
+    <arg name="parallel" value="4"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <rule ref="PSR12"/>
+
+    <!-- The plugin entry point is a WordPress bootstrap: it legitimately both defines
+         constants and registers hooks, which the "no side effects" sniff forbids. -->
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>ordo.php</exclude-pattern>
+    </rule>
+</ruleset>

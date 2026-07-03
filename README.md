@@ -30,5 +30,9 @@ sync). No runtime build step — Node is used only to bundle assets at build tim
 
 ## Licence
 
-© 2026 Introibo. Licensed under **AGPL-3.0-or-later** (see [LICENSE](LICENSE)). The compiled calendar
-dataset is released under **CC0**.
+© 2026 Introibo. The plugin is licensed **GPL-2.0-or-later** (see [LICENSE](LICENSE)) — the licence
+WordPress plugins are distributed under. It **bundles the Introibo Core engine** (under
+[`src/Core/`](src/Core/), vendored by [`bin/vendor-core.php`](bin/vendor-core.php)), which is licensed
+**AGPL-3.0-or-later** (see [`src/Core/LICENSE`](src/Core/LICENSE)); the two are compatible because
+GPL-2.0-**or-later** reaches GPLv3, with which AGPL-3.0 combines. The compiled calendar **dataset**
+(`src/Core/data/corpus/`) is released under **CC0**.
