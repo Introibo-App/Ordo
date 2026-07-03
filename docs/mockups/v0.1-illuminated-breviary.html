@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ordo v0.1 — Illuminated Breviary interface mockups</title>
+</head>
+<body>
+<style>
+  :root{
+    --navy:#0b1d4a; --navy2:#16306c; --ink:#222a35; --muted:#6f7682;
+    --gold:#a97f2e; --gold2:#c9a24a; --gold-ink:#856420; --rule:#d8c08a; --keyline:rgba(169,127,46,.42);
+    --oxblood:#7a2e2a; --cream:#fbf6ec; --parch:#f4ecdc; --paper:#fffdf8;
+    --lit-white:#f7f4ea; --lit-red:#8f2f2c; --lit-green:#2f6a45; --lit-violet:#59397f; --lit-black:#23252b; --lit-rose:#cf7fa0;
+    /* brightened for legibility on the navy bar */
+    --on-white:#f4efe2; --on-red:#d64f43; --on-green:#54a474; --on-violet:#9a7ad0; --on-black:#4b4b58; --on-rose:#e8a6c4;
+    --serif:"Cormorant Garamond","Cormorant",Garamond,"Hoefler Text",Georgia,"Times New Roman",serif;
+    --sc:"Cormorant SC","Cormorant Garamond",Garamond,Georgia,serif;
+    --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --radius:3px; --cell-radius:2px; --maxw:1140px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0}
+  .page{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;padding:0 0 72px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  .sc{font-family:var(--sc)} .serif{font-family:var(--serif)}
+  .eyebrow{font-family:var(--sc);font-size:12px;letter-spacing:.18em;color:var(--gold-ink)}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;color:var(--navy)}
+  button{font-family:inherit}
+
+  .doc-head{padding:34px 0 22px;border-bottom:2px solid var(--navy);margin-bottom:8px}
+  .doc-head .eyebrow{display:block;margin-bottom:8px}
+  .doc-head h1{font-size:clamp(2.3rem,5vw,3.6rem);line-height:1.03;letter-spacing:-.5px;margin:0 0 12px}
+  .doc-head .sub{color:var(--muted);max-width:62ch} .doc-head .sub b{color:var(--ink)}
+
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:24px 0 6px}
+  .lbox{background:var(--cream);border:1px solid var(--keyline);border-radius:var(--radius);padding:13px 16px}
+  .lbox h4{margin:0 0 10px;font-family:var(--sc);font-size:11px;letter-spacing:.16em;color:var(--gold-ink);font-weight:600}
+  .swatches{display:flex;flex-wrap:wrap;gap:9px} .sw{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink)}
+  .dot{width:13px;height:13px;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.16) inset} .dot.ring{box-shadow:0 0 0 1px var(--gold) inset}
+  .ranks div{display:flex;gap:9px;align-items:baseline;font-size:12.5px;margin-bottom:5px}
+  .rn{font-family:var(--serif);color:var(--gold-ink);font-weight:700;width:30px;text-align:right;font-size:15px}
+  .typenote{font-size:12.5px;color:var(--muted)} .typenote .serif{color:var(--navy);font-size:18px} .typenote .sc{color:var(--gold-ink);letter-spacing:.14em}
+
+  .surface{margin-top:42px}
+  .cap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:12px;border-bottom:1px solid var(--rule);padding-bottom:7px}
+  .cap .t{font-family:var(--serif);font-size:20px;color:var(--navy)}
+  .cap .spec{color:var(--muted);font-size:12.5px;text-align:right;max-width:50ch}
+  .cap code{font-family:var(--sans);font-size:11.5px;background:var(--cream);border:1px solid var(--keyline);border-radius:2px;padding:1px 5px;color:var(--navy)}
+  .frame{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--radius);box-shadow:0 12px 34px -20px rgba(11,29,74,.55);overflow:hidden}
+  .scroll{overflow-x:auto}
+  .mobilerow{display:flex;gap:22px;align-items:flex-start;margin-top:16px;flex-wrap:wrap}
+  .phone{flex:0 0 340px;max-width:340px;border:1px solid var(--keyline);border-radius:16px;overflow:hidden;box-shadow:0 14px 34px -20px rgba(11,29,74,.55);background:var(--paper)}
+  .phlabel{font-family:var(--sc);letter-spacing:.16em;font-size:10px;color:var(--gold-ink);text-align:center;padding:7px;background:var(--cream);border-bottom:1px solid var(--keyline)}
+  .mnote{flex:1 1 260px;color:var(--muted);font-size:13px;align-self:center} .mnote b{color:var(--ink)}
+
+  /* ── S1 ribbon ── */
+  .ribbon{background:var(--navy);text-align:center;font-family:var(--sc);letter-spacing:.14em;font-size:13px;color:var(--gold2);padding:9px 16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative}
+  .ribbon .x{color:var(--gold);margin:0 10px} .ribbon b{font-weight:700}
+  .ribbon .gem{display:inline-block;width:12px;height:12px;border-radius:50%;margin:0 10px 0 0;vertical-align:middle;position:relative;top:-1px;box-shadow:0 0 0 1.5px var(--gold2)}
+  .ribbon.tab2{padding-left:26px;padding-right:26px}
+  .ribbon .ltab{position:absolute;left:0;top:0;bottom:0;width:9px} .ribbon .rtab{position:absolute;right:0;top:0;bottom:0;width:9px}
+  .ribbon.tab{padding-left:24px}
+  .ribbon.palrow{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 22px;white-space:normal}
+  .ribbon .gp{display:inline-flex;align-items:center;gap:8px;color:#dfe6f2;font-size:12px}
+  .ropt{display:flex;align-items:flex-start;gap:14px;margin-top:10px}
+  .ropt .rlab{flex:0 0 140px;font-family:var(--sc);letter-spacing:.1em;font-size:11px;color:var(--gold-ink);text-align:right;padding-top:9px;line-height:1.35}
+  .ropt .grow{flex:1;display:flex;flex-direction:column;gap:8px} .ropt .grow .frame{flex:none}
+
+  /* ── slider (week strip + modal nav share this) ── */
+  .strip{display:flex;background:var(--navy);align-items:stretch}
+  .wkchev{flex:0 0 44px;background:transparent;border:0;color:var(--gold2);font-family:var(--serif);font-size:20px;line-height:1;cursor:pointer}
+  .wkchev:hover{background:rgba(255,255,255,.08);color:#fff}
+  .wkchev.left{border-right:1px solid rgba(216,192,138,.24)} .wkchev.right{border-left:1px solid rgba(216,192,138,.24)}
+  .swin{flex:1;overflow:hidden} .strack{display:flex;transition:transform .22s ease}
+  .sd{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:1px;text-align:center;padding:9px 4px 10px;border-right:1px solid rgba(255,255,255,.06);background:transparent;cursor:pointer;position:relative}
+  .sd:hover{background:rgba(255,255,255,.06)}
+  .sd .wd{font-family:var(--sc);font-size:10px;letter-spacing:.14em;color:#8ca0c6}
+  .sd .dd{font-family:var(--serif);font-size:21px;line-height:1.15;color:#eef2fa;font-variant-numeric:tabular-nums}
+  .sd .fe{font-size:9.5px;color:#b9c6df;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:100%;padding:0 2px}
+  .sd .cd{width:8px;height:8px;border-radius:50%;margin-top:4px;box-shadow:0 0 0 1px rgba(255,255,255,.28) inset}
+  .sd.today{background:linear-gradient(180deg,rgba(201,164,79,.2),rgba(201,164,79,.04))}
+  .sd.today::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gold2)}
+  .sd.today .wd,.sd.today .dd{color:var(--gold2)}
+  .sd.sel{box-shadow:inset 0 2px 0 var(--gold2)}
+
+  /* modal nav variant */
+  .dnav .wkchev{font-size:22px} .dnav .sd{padding:9px 0 8px}
+  .dnav .sd .fe{display:none}
+
+  /* ── S3 month grid ── */
+  .cal{padding:20px 22px 24px;min-width:760px}
+  .cal-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px;gap:16px}
+  .cal-head .m{font-family:var(--serif);font-size:29px;color:var(--navy);font-weight:600;line-height:1}
+  .cal-head .m small{display:block;font-family:var(--sc);font-size:11px;letter-spacing:.14em;color:var(--oxblood);margin-top:4px}
+  .cal-nav{display:flex;align-items:center;gap:8px}
+  .arw{font-family:var(--serif);background:var(--navy);color:#fff;border:0;border-radius:var(--radius);width:30px;height:30px;font-size:16px;line-height:1;cursor:pointer} .arw:hover{background:var(--navy2)}
+  .yr{font-family:var(--sc);letter-spacing:.06em;color:var(--navy);background:var(--cream);border:1px solid var(--keyline);border-radius:var(--radius);padding:6px 8px;font-size:14px;width:76px;text-align:center;font-variant-numeric:tabular-nums}
+  .dow{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
+  .dow div{text-align:center;font-family:var(--sc);font-size:11px;letter-spacing:.14em;color:var(--gold-ink);padding-bottom:2px}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .cell{aspect-ratio:1/1;background:var(--cream);border:1px solid var(--keyline);border-left-width:4px;border-radius:var(--cell-radius);padding:6px 7px;position:relative;display:flex;flex-direction:column;transition:transform .12s,box-shadow .12s}
+  .cell:not(.out){cursor:pointer} .cell:not(.out):hover{transform:translateY(-2px);box-shadow:0 8px 18px -10px rgba(11,29,74,.5)}
+  .cell .n{font-family:var(--serif);font-size:17px;line-height:1;color:var(--navy);font-variant-numeric:tabular-nums}
+  .cell .f{font-size:10.5px;line-height:1.16;color:var(--ink);margin-top:2px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+  .cell .rk{position:absolute;top:6px;right:7px;font-family:var(--serif);font-size:11px;font-weight:700;color:var(--gold-ink)}
+  .cell .fi{position:absolute;bottom:5px;right:6px;font-size:11px;opacity:.5}
+  .cell.out{background:transparent;border-color:transparent;border-left-color:transparent} .cell.out .n,.cell.out .f{color:#bcb59c}
+  .cell.wl-white{border-left-color:var(--gold)} .cell.wl-red{border-left-color:var(--lit-red)} .cell.wl-green{border-left-color:var(--lit-green)} .cell.wl-violet{border-left-color:var(--lit-violet)}
+  .cell.first{box-shadow:0 0 0 1px var(--gold) inset;background:var(--paper)} .cell.first .f{font-weight:600;color:var(--navy)}
+  .cell.today{box-shadow:0 0 0 2px var(--navy);background:#fff}
+  .cell.today .tag{position:absolute;bottom:4px;left:7px;font-family:var(--sc);font-size:8px;letter-spacing:.12em;color:var(--navy)}
+
+  /* agenda mobile */
+  .agnav{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--cream);border-bottom:1px solid var(--keyline)}
+  .agnav .agjump{flex:0 0 30px;height:30px;background:var(--navy);color:#fff;border:0;border-radius:var(--radius);font-family:var(--serif);font-size:15px;cursor:pointer}
+  .agnav .agdate{flex:1;font-family:var(--sans);color:var(--navy);background:var(--paper);border:1px solid var(--keyline);border-radius:var(--radius);padding:6px 8px;font-size:13px}
+  .agenda{max-height:300px;overflow-y:auto}
+  .aghint{text-align:center;font-family:var(--sc);letter-spacing:.14em;font-size:9px;color:var(--muted);padding:6px}
+  .ag{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #efe7d4;border-left:4px solid var(--keyline)}
+  .ag.today{background:#fff;border-left-color:var(--navy);box-shadow:inset 0 0 0 1px var(--gold)}
+  .ag.wl-white{border-left-color:var(--gold)} .ag.wl-red{border-left-color:var(--lit-red)} .ag.wl-green{border-left-color:var(--lit-green)}
+  .ag .agd{width:44px;flex:none;text-align:center}
+  .ag .agd .agw{font-family:var(--sc);font-size:9px;letter-spacing:.1em;color:var(--muted);display:block}
+  .ag .agd .agn{font-family:var(--serif);font-size:19px;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums}
+  .ag .agf{flex:1;font-family:var(--serif);font-size:15px;color:var(--ink);line-height:1.15}
+  .ag.today .agf{font-weight:600;color:var(--navy)}
+  .ag .agr{font-family:var(--serif);font-weight:700;font-size:12px;color:var(--gold-ink)} .ag .agfi{font-size:11px;opacity:.5}
+
+  /* ── S4 today card + modal ── */
+  .row2{display:grid;grid-template-columns:296px 1fr;gap:20px;align-items:start}
+  @media (max-width:780px){.row2{grid-template-columns:1fr}}
+  .tcard{background:var(--paper);border:1px solid var(--keyline);border-top:3px solid var(--gold);border-radius:var(--radius);padding:19px 20px 17px;box-shadow:0 12px 34px -20px rgba(11,29,74,.55)}
+  .tcard .k{font-family:var(--sc);font-size:11px;letter-spacing:.16em;color:var(--oxblood)} .tcard .date{color:var(--muted);font-size:12.5px;margin-top:2px}
+  .tcard h3{font-size:26px;line-height:1.06;margin:8px 0 12px;text-wrap:balance}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:13px}
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--keyline);background:var(--cream);border-radius:2px;padding:4px 9px;font-size:11.5px;color:var(--ink);white-space:nowrap}
+  .chip .l{font-family:var(--sc);font-size:9.5px;letter-spacing:.1em;color:var(--muted)} .chip.rank{border-color:var(--gold);color:var(--navy);font-weight:600}
+  .cd-i{width:9px;height:9px;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.2) inset;display:inline-block}
+  .tcard .season{font-size:12.5px;color:var(--muted);border-top:1px solid var(--keyline);padding-top:11px;margin-bottom:13px} .tcard .season b{color:var(--ink)}
+  .link{display:inline-flex;align-items:center;gap:6px;color:var(--navy);font-weight:600;font-size:13px;text-decoration:none;border-bottom:1.5px solid var(--gold);padding-bottom:1px} .link .a{color:var(--gold-ink)}
+  .modal{border:1px solid var(--navy);border-radius:var(--radius);overflow:hidden;box-shadow:0 26px 64px -22px rgba(11,29,74,.7);background:var(--paper)}
+  .mbar{background:var(--navy);color:#eef2fa;display:flex;align-items:center;justify-content:space-between;padding:11px 16px}
+  .mbar .l{font-family:var(--sc);letter-spacing:.08em;font-size:12px;color:var(--gold2)}
+  .mbar .x{width:26px;height:26px;border-radius:2px;border:1px solid rgba(216,192,138,.4);background:transparent;color:#eef2fa;cursor:pointer;font-size:15px;line-height:1}
+  .mbody{padding:22px 26px 20px} .mbody .k{font-family:var(--sc);font-size:11px;letter-spacing:.16em;color:var(--oxblood)}
+  .mbody h2{font-size:34px;line-height:1.04;margin:5px 0 3px;text-wrap:balance} .mbody .en{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:16px;margin-bottom:13px}
+  .mcols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:14px} @media (max-width:640px){.mcols{grid-template-columns:1fr}}
+  .modal h4{font-family:var(--sc);font-size:11px;letter-spacing:.14em;color:var(--gold-ink);font-weight:600;margin:0 0 7px;border-bottom:1px solid var(--keyline);padding-bottom:5px}
+  .commems{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px} .commems li{font-family:var(--serif);font-size:15px;color:var(--ink);display:flex;gap:8px;align-items:baseline}
+  .rubrics{font-size:13.5px;line-height:1.62;color:var(--ink)} .rubrics .r{color:var(--oxblood);font-variant:small-caps;letter-spacing:.02em;font-weight:600} .rubrics em{color:var(--navy);font-style:italic;font-family:var(--serif);font-size:15px}
+  .dnav{border-top:1px solid var(--keyline)}
+
+  /* ── S5 settings ── */
+  .settings{background:#f0f1f4;border:1px solid #d7dae2;border-radius:var(--radius);overflow:hidden;min-width:640px}
+  .stop{background:#fff;border-bottom:1px solid #e3e6ec;padding:15px 22px;display:flex;align-items:center;gap:11px}
+  .stop .cross{color:var(--gold);font-size:20px} .stop h3{font-size:21px;margin:0}
+  .stop .ver{margin-left:auto;font-family:var(--sc);letter-spacing:.08em;font-size:11px;color:var(--muted);background:#eef0f4;border:1px solid #e0e3e9;border-radius:2px;padding:3px 8px}
+  .tabs{display:flex;gap:2px;padding:0 22px;background:#fff;border-bottom:1px solid #e3e6ec}
+  .tabs button{font-family:var(--sc);letter-spacing:.06em;border:0;background:transparent;padding:11px 15px 9px;font-size:13px;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer}
+  .tabs button.on{color:var(--navy);border-bottom-color:var(--gold);font-weight:600}
+  .sbody{padding:20px 22px 24px;display:grid;grid-template-columns:1fr 1fr;gap:18px} @media (max-width:700px){.sbody{grid-template-columns:1fr}}
+  .scard{background:#fff;border:1px solid #e3e6ec;border-radius:var(--radius);padding:16px 17px}
+  .scard h5{margin:0 0 3px;font-family:var(--serif);font-size:18px;color:var(--navy);font-weight:600} .scard p.h{margin:0 0 13px;font-size:12px;color:var(--muted);line-height:1.45}
+  .opt{display:flex;align-items:center;gap:11px;padding:9px 0;border-top:1px solid #eef0f4} .opt:first-of-type{border-top:none}
+  .radio{width:17px;height:17px;border-radius:50%;border:2px solid #c3c9d4;flex:none;position:relative} .radio.on{border-color:var(--gold)} .radio.on::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--gold)}
+  .opt .ot{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--navy);line-height:1.1} .opt .ot small{display:block;font-family:var(--sans);font-size:11.5px;font-weight:400;color:var(--muted);margin-top:2px}
+  .opt .tag{margin-left:auto;font-family:var(--sc);font-size:9.5px;letter-spacing:.1em;color:var(--gold-ink);font-weight:600;background:var(--cream);border:1px solid var(--keyline);border-radius:2px;padding:2px 7px;align-self:center}
+  .toggle{margin-left:auto;width:36px;height:20px;border-radius:20px;background:var(--gold);position:relative;flex:none;align-self:center} .toggle.off{background:#c3c9d4}
+  .toggle::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.3)} .toggle:not(.off)::after{left:18px}
+  .rowlbl{font-size:13.5px;color:var(--ink)} .rowlbl small{display:block;color:var(--muted);font-size:11.5px}
+  .pal{display:flex;gap:8px;margin-top:4px} .pal .p{flex:1;border:1px solid #e3e6ec;border-radius:2px;padding:8px;text-align:center;font-family:var(--sc);font-size:11px;letter-spacing:.06em;color:var(--muted);cursor:pointer}
+  .pal .p.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)} .pal .p .bar{display:flex;height:15px;border-radius:2px;overflow:hidden;margin-bottom:6px} .pal .p .bar span{flex:1}
+
+  .foot{margin-top:50px;border-top:1px solid var(--rule);padding-top:16px;color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap} .foot b{color:var(--ink)}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+</style>
+
+<div class="page"><div class="wrap">
+
+  <header class="doc-head">
+    <span class="eyebrow">Ordo · WordPress plugin · v0.1 interface mockups · rev. 5</span>
+    <h1>Rendered for the Illuminated Breviary</h1>
+    <p class="sub">Five surfaces on the <b>Mary Michael Machabee / 3mi.org</b> design system. Ships defaulting to <b>Universal 1962</b>; shown on the live <b>SSPX</b> calendar, September <span class="sc">mmxxvi</span>. The week strip and the modal day-picker both slide <b>day-by-day</b> (live) — chevrons slide, click a day to open it.</p>
+  </header>
+
+  <section class="legend">
+    <div class="lbox"><h4>Liturgical colour</h4>
+      <div class="swatches">
+        <span class="sw"><span class="dot ring" style="background:var(--lit-white)"></span>White</span>
+        <span class="sw"><span class="dot" style="background:var(--lit-red)"></span>Red</span>
+        <span class="sw"><span class="dot" style="background:var(--lit-green)"></span>Green</span>
+        <span class="sw"><span class="dot" style="background:var(--lit-violet)"></span>Violet</span>
+        <span class="sw"><span class="dot" style="background:var(--lit-black)"></span>Black</span>
+        <span class="sw"><span class="dot" style="background:var(--lit-rose)"></span>Rose</span>
+      </div>
+    </div>
+    <div class="lbox"><h4>Rank / class</h4>
+      <div class="ranks">
+        <div><span class="rn">I</span><span>First class</span></div><div><span class="rn">II</span><span>Second class</span></div>
+        <div><span class="rn">III</span><span>Third class</span></div><div><span class="rn">IV</span><span>Fourth class · commemoration · feria</span></div>
+      </div>
+    </div>
+    <div class="lbox"><h4>Type &amp; palette</h4>
+      <p class="typenote"><span class="serif">Cormorant Garamond</span> feasts · <span class="sc">CORMORANT SC</span> labels · Inter body.<br>
+      <span style="color:#b1a98e">navy #0b1d4a · gold #a97f2e · oxblood #7a2e2a · parchment #f4ecdc.</span></p>
+    </div>
+  </section>
+
+  <!-- S1 -->
+  <section class="surface">
+    <div class="cap">
+      <div><span class="eyebrow">Surface 01 · Header ribbon</span><div class="t">One line, as the site's existing top bar</div></div>
+      <div class="spec">Feast · class · feria &amp; date. A brightened colour <b>tab on each edge</b> and a gold-ringed <b>gem</b> — legible on navy for every colour.</div>
+    </div>
+    <div class="frame"><div class="ribbon tab2"><span class="ltab" style="background:var(--on-white)"></span><span class="rtab" style="background:var(--on-white)"></span><span class="gem" style="background:var(--on-white)"></span><b>S. Pii X Papæ</b><span class="x">✚</span>I classis<span class="x">✚</span>Feria V · 3 Septembris mmxxvi</div></div>
+
+    <div class="ropt"><div class="rlab">Other colours<br>· on navy ·</div>
+      <div class="grow">
+        <div class="frame"><div class="ribbon tab2"><span class="ltab" style="background:var(--on-red)"></span><span class="rtab" style="background:var(--on-red)"></span><span class="gem" style="background:var(--on-red)"></span><b>Exaltatio S. Crucis</b><span class="x">✚</span>II classis<span class="x">✚</span>14 Septembris</div></div>
+        <div class="frame"><div class="ribbon tab2"><span class="ltab" style="background:var(--on-violet)"></span><span class="rtab" style="background:var(--on-violet)"></span><span class="gem" style="background:var(--on-violet)"></span><b>Dominica I Adventus</b><span class="x">✚</span>I classis<span class="x">✚</span>29 Novembris</div></div>
+        <div class="frame"><div class="ribbon tab2"><span class="ltab" style="background:var(--on-black)"></span><span class="rtab" style="background:var(--on-black)"></span><span class="gem" style="background:var(--on-black)"></span><b>Commemoratio Omnium Fidelium Defunctorum</b><span class="x">✚</span>2 Novembris</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S2 -->
+  <section class="surface">
+    <div class="cap">
+      <div><span class="eyebrow">Surface 02 · Week strip</span><div class="t">A rolling week — slides day-by-day</div></div>
+      <div class="spec"><code>[ordo_calendar_strip]</code> &amp; block. Chevrons move one day at a time, so every day is reachable even on mobile; each day opens its view.</div>
+    </div>
+    <div class="frame"><div class="strip" id="strip-full">
+      <button class="wkchev left" data-left aria-label="Earlier">‹</button>
+      <div class="swin"><div class="strack" data-track></div></div>
+      <button class="wkchev right" data-right aria-label="Later">›</button>
+    </div></div>
+    <div class="mobilerow">
+      <div class="phone"><div class="phlabel">Mobile · 340px · same, day-by-day</div>
+        <div class="strip" id="strip-phone"><button class="wkchev left" data-left aria-label="Earlier">‹</button><div class="swin"><div class="strack" data-track></div></div><button class="wkchev right" data-right aria-label="Later">›</button></div>
+      </div>
+      <div class="mnote">The strip now <b>slides one day per chevron</b> (like the modal picker), so a narrow phone shows three days but you can walk to any of them — <b>no scrollbar, no skipped days</b>.</div>
+    </div>
+  </section>
+
+  <!-- S3 -->
+  <section class="surface">
+    <div class="cap">
+      <div><span class="eyebrow">Surface 03 · Month grid</span><div class="t">The full calendar — square cells</div></div>
+      <div class="spec"><code>[ordo_calendar]</code> &amp; block. Cells open the day view; type any year (1583–2200).</div>
+    </div>
+    <div class="frame"><div class="scroll"><div class="cal">
+      <div class="cal-head">
+        <div class="m">September <small>Tempus post Pentecosten</small></div>
+        <div class="cal-nav"><button class="arw" aria-label="Previous month">‹</button><input class="yr" type="number" value="2026" min="1583" max="2200" aria-label="Year"><button class="arw" aria-label="Next month">›</button></div>
+      </div>
+      <div class="dow"><div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div></div>
+      <div class="grid">
+        <div class="cell out"><div class="n">30</div><div class="f">Dom. XIV</div></div>
+        <div class="cell out"><div class="n">31</div><div class="f">S. Raymundi</div></div>
+        <div class="cell wl-green"><div class="n">1</div><span class="rk">IV</span><div class="f">Feria</div></div>
+        <div class="cell wl-white"><div class="n">2</div><span class="rk">III</span><div class="f">S. Stephani Regis</div></div>
+        <div class="cell wl-white first today"><div class="n">3</div><span class="rk">I</span><div class="f">S. Pii X Papæ</div><span class="tag">Hodie</span></div>
+        <div class="cell wl-green"><div class="n">4</div><span class="rk">IV</span><div class="f">Feria</div><span class="fi">🐟</span></div>
+        <div class="cell wl-white"><div class="n">5</div><span class="rk">III</span><div class="f">S. Laurentii Iust.</div></div>
+        <div class="cell wl-green"><div class="n">6</div><span class="rk">II</span><div class="f">Dom. XV p. Pent.</div></div>
+        <div class="cell wl-green"><div class="n">7</div><span class="rk">IV</span><div class="f">Feria</div></div>
+        <div class="cell wl-white"><div class="n">8</div><span class="rk">II</span><div class="f">Nativitas B.M.V.</div></div>
+        <div class="cell wl-green"><div class="n">9</div><span class="rk">IV</span><div class="f">Feria</div></div>
+        <div class="cell wl-white"><div class="n">10</div><span class="rk">III</span><div class="f">S. Nicolai de Tol.</div></div>
+        <div class="cell wl-white"><div class="n">11</div><span class="rk">IV</span><div class="f">Feria</div><span class="fi">🐟</span></div>
+        <div class="cell wl-white"><div class="n">12</div><span class="rk">III</span><div class="f">SS. Nominis Mariæ</div></div>
+        <div class="cell wl-green"><div class="n">13</div><span class="rk">II</span><div class="f">Dom. XVI p. Pent.</div></div>
+        <div class="cell wl-red"><div class="n">14</div><span class="rk">II</span><div class="f">Exaltatio S. Crucis</div></div>
+        <div class="cell wl-white first"><div class="n">15</div><span class="rk">I</span><div class="f">Septem Dolorum B.M.V.</div></div>
+        <div class="cell wl-red"><div class="n">16</div><span class="rk">III</span><div class="f">SS. Cornelii et Cypr.</div><span class="fi">🐟</span></div>
+        <div class="cell wl-green"><div class="n">17</div><span class="rk">IV</span><div class="f">Feria</div></div>
+        <div class="cell wl-white"><div class="n">18</div><span class="rk">III</span><div class="f">S. Ioseph a Cup.</div><span class="fi">🐟</span></div>
+        <div class="cell wl-red"><div class="n">19</div><span class="rk">III</span><div class="f">S. Ianuarii et Soc.</div><span class="fi">🐟</span></div>
+        <div class="cell wl-green"><div class="n">20</div><span class="rk">II</span><div class="f">Dom. XVII p. Pent.</div></div>
+        <div class="cell wl-red"><div class="n">21</div><span class="rk">II</span><div class="f">S. Matthæi Apost.</div></div>
+        <div class="cell wl-white"><div class="n">22</div><span class="rk">III</span><div class="f">S. Thomæ de Vill.</div></div>
+        <div class="cell wl-red"><div class="n">23</div><span class="rk">III</span><div class="f">S. Lini Papæ</div></div>
+        <div class="cell wl-green"><div class="n">24</div><span class="rk">IV</span><div class="f">Feria</div></div>
+        <div class="cell wl-green"><div class="n">25</div><span class="rk">IV</span><div class="f">Feria</div><span class="fi">🐟</span></div>
+        <div class="cell wl-green"><div class="n">26</div><span class="rk">IV</span><div class="f">Feria</div></div>
+        <div class="cell wl-green"><div class="n">27</div><span class="rk">II</span><div class="f">Dom. XVIII p. Pent.</div></div>
+        <div class="cell wl-red"><div class="n">28</div><span class="rk">III</span><div class="f">S. Wenceslai Ducis</div></div>
+        <div class="cell wl-white first"><div class="n">29</div><span class="rk">I</span><div class="f">Ded. S. Michaëlis</div></div>
+        <div class="cell wl-white"><div class="n">30</div><span class="rk">III</span><div class="f">S. Hieronymi</div></div>
+        <div class="cell out"><div class="n">1</div><div class="f">S. Remigii</div></div>
+        <div class="cell out"><div class="n">2</div><div class="f">SS. Angelorum</div></div>
+        <div class="cell out"><div class="n">3</div><div class="f">S. Teresiæ</div></div>
+      </div>
+    </div></div></div>
+    <div class="mobilerow">
+      <div class="phone"><div class="phlabel">Mobile · agenda list</div>
+        <div class="agnav"><button class="agjump" aria-label="Earlier">‹</button><input class="agdate" type="date" value="2026-09-03" aria-label="Jump to date"><button class="agjump" aria-label="Later">›</button></div>
+        <div class="agenda">
+          <div class="aghint">· · · earlier days · · ·</div>
+          <div class="ag wl-white"><div class="agd"><span class="agw">SAT</span><span class="agn">29</span></div><div class="agf">In Decollatione S. Ioannis</div><span class="agr">III</span></div>
+          <div class="ag wl-green"><div class="agd"><span class="agw">SUN</span><span class="agn">30</span></div><div class="agf">Dominica XIV p. Pent.</div><span class="agr">II</span></div>
+          <div class="ag wl-white"><div class="agd"><span class="agw">MON</span><span class="agn">31</span></div><div class="agf">S. Raymundi Nonnati</div><span class="agr">III</span></div>
+          <div class="ag wl-green"><div class="agd"><span class="agw">TUE</span><span class="agn">1</span></div><div class="agf">Feria</div><span class="agr">IV</span></div>
+          <div class="ag wl-white"><div class="agd"><span class="agw">WED</span><span class="agn">2</span></div><div class="agf">S. Stephani Regis</div><span class="agr">III</span></div>
+          <div class="ag today wl-white"><div class="agd"><span class="agw">THU</span><span class="agn">3</span></div><div class="agf">S. Pii X Papæ</div><span class="agr">I</span></div>
+          <div class="ag wl-green"><div class="agd"><span class="agw">FRI</span><span class="agn">4</span></div><div class="agf">Feria</div><span class="agfi">🐟</span><span class="agr">IV</span></div>
+          <div class="ag wl-white"><div class="agd"><span class="agw">SAT</span><span class="agn">5</span></div><div class="agf">S. Laurentii Iustiniani</div><span class="agr">III</span></div>
+          <div class="ag wl-green"><div class="agd"><span class="agw">SUN</span><span class="agn">6</span></div><div class="agf">Dominica XV p. Pent.</div><span class="agr">II</span></div>
+          <div class="ag wl-green"><div class="agd"><span class="agw">MON</span><span class="agn">7</span></div><div class="agf">Feria</div><span class="agr">IV</span></div>
+          <div class="ag wl-white"><div class="agd"><span class="agw">TUE</span><span class="agn">8</span></div><div class="agf">Nativitas B. Mariæ Virg.</div><span class="agr">II</span></div>
+          <div class="aghint">· · · later days · · ·</div>
+        </div>
+      </div>
+      <div class="mnote"><b>Proposed mobile calendar:</b> below a breakpoint the square grid becomes an <b>agenda list</b> with a <b>date picker</b> up top (jump to any day, any year) and <b>infinite scroll</b> through the days. (Alternative: a compact colour-dot grid that opens the day on tap — your call.)</div>
+    </div>
+  </section>
+
+  <!-- S4 -->
+  <section class="surface">
+    <div class="cap">
+      <div><span class="eyebrow">Surface 04 · Today card &amp; day view</span><div class="t">An embeddable card, and the modal it opens</div></div>
+      <div class="spec"><code>[ordo_today]</code> is embedded &amp; always shows <em>today</em>; the modal opens for <em>any</em> day. Chevrons slide the day row — click a day to load it.</div>
+    </div>
+    <div class="row2">
+      <div class="tcard">
+        <div class="k">Today · Hodie</div>
+        <div class="date">Thursday, 3 September 2026</div>
+        <h3>S. Pii X Papæ Confessoris</h3>
+        <div class="chips"><span class="chip rank"><span class="l">Class</span> I</span><span class="chip"><span class="cd-i" style="background:var(--lit-white)"></span>White</span></div>
+        <div class="season">Season · <b>Time after Pentecost</b> — 14th week</div>
+        <a class="link" href="#">Open the day <span class="a">→</span></a>
+      </div>
+      <div class="modal" role="dialog" aria-modal="true" aria-label="Day view">
+        <div class="mbar"><span class="l" id="m-date">3 Septembris mmxxvi · Feria V</span><button class="x" aria-label="Close">✕</button></div>
+        <div class="mbody">
+          <div class="k" id="m-rankline">Duplex · First class</div>
+          <h2 id="m-feast">S. Pii X Papæ Confessoris</h2>
+          <div class="en" id="m-en">Pope St Pius X, Confessor</div>
+          <div class="chips">
+            <span class="chip rank"><span class="l">Class</span> <span id="m-rankchip">I</span></span>
+            <span class="chip"><span class="cd-i" id="m-colourdot" style="background:var(--lit-white)"></span><span id="m-colourname">White</span></span>
+            <span class="chip"><span class="l">Cal.</span> SSPX</span>
+          </div>
+          <div class="mcols">
+            <div>
+              <h4>Commemorations</h4>
+              <ul class="commems"><li><span class="cd-i" style="background:var(--lit-green)"></span>Feria V infra Hebd. XIV</li></ul>
+              <h4 style="margin-top:15px">In the Society's calendar</h4>
+              <ul class="commems"><li><span class="cd-i" style="background:var(--lit-white)"></span>Raised to first class.</li></ul>
+            </div>
+            <div>
+              <h4>At Mass</h4>
+              <p class="rubrics"><span class="r">Missa</span> <em>Státuit ei Dóminus</em> — of the feast. <span class="r">Glória.</span> <span class="r">Credo.</span> Second oration a commemoration of the feria. <span class="r">Præfátio</span> communis.</p>
+            </div>
+          </div>
+        </div>
+        <div class="strip dnav" id="dnav">
+          <button class="wkchev left" data-left aria-label="Earlier days">‹</button>
+          <div class="swin"><div class="strack" data-track></div></div>
+          <button class="wkchev right" data-right aria-label="Later days">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S5 -->
+  <section class="surface">
+    <div class="cap">
+      <div><span class="eyebrow">Surface 05 · Settings</span><div class="t">Tabbed cards, elevated WP chrome</div></div>
+      <div class="spec">Ships on <b>Universal 1962</b>; particular calendars are opt-in (this install would select SSPX).</div>
+    </div>
+    <div class="frame"><div class="scroll"><div class="settings">
+      <div class="stop"><span class="cross">✚</span><h3>Ordo Settings</h3><span class="ver">v0.1.0</span></div>
+      <div class="tabs"><button class="on">Calendar</button><button>Appearance</button><button>Display</button><button>About</button></div>
+      <div class="sbody">
+        <div class="scard">
+          <h5>Calendar preset</h5>
+          <p class="h">The calendar this site follows. Presets layer a society's proper feasts over the universal 1962 calendar.</p>
+          <div class="opt"><span class="radio on"></span><span class="ot">Universal 1962<small>No particular overlay</small></span><span class="tag">Default</span></div>
+          <div class="opt"><span class="radio"></span><span class="ot">SSPX<small>Society of St Pius X</small></span></div>
+          <div class="opt"><span class="radio"></span><span class="ot">FSSP<small>Priestly Fraternity of St Peter</small></span></div>
+          <div class="opt"><span class="radio"></span><span class="ot">ICKSP<small>Institute of Christ the King</small></span></div>
+        </div>
+        <div class="scard">
+          <h5>Rubrics &amp; display</h5>
+          <p class="h">How offices are computed and shown.</p>
+          <div class="opt"><span class="rowlbl">Rubrics of 1960 <small>The 1962 rubrical system</small></span><span class="toggle"></span></div>
+          <div class="opt"><span class="rowlbl">Show commemorations <small>Second office &amp; oration</small></span><span class="toggle"></span></div>
+          <div class="opt"><span class="rowlbl">Rubrics in red <small>Colour the ritual directions</small></span><span class="toggle"></span></div>
+          <div class="opt"><span class="rowlbl">Latin feast names <small>Otherwise the site language</small></span><span class="toggle off"></span></div>
+          <h5 style="margin-top:16px;font-size:15px">Palette</h5>
+          <div class="pal">
+            <div class="p on"><div class="bar"><span style="background:#0b1d4a"></span><span style="background:#a97f2e"></span><span style="background:#f4ecdc"></span></div>Illuminated</div>
+            <div class="p"><div class="bar"><span style="background:#5b4a36"></span><span style="background:#a98a55"></span><span style="background:#f4efe2"></span></div>Parchment</div>
+            <div class="p"><div class="bar"><span style="background:#2b3138"></span><span style="background:#8a9bb0"></span><span style="background:#eef1f4"></span></div>Slate</div>
+          </div>
+        </div>
+      </div>
+    </div></div></div>
+  </section>
+
+  <div class="foot">
+    <span>Standalone WordPress plugin · bundles the Introibo engine · <b>no external dependency</b> · GPL-2.0-or-later.</span>
+    <span>Tokens &amp; type from the 3mi.org / Mary Michael Machabee site. Data: real SSPX resolution, Sept 2026.</span>
+  </div>
+</div></div>
+
+<script>
+(function(){
+  var DAYS=[
+    {wd:'SAT',dd:29,colour:'red',fe:'S. Ioannis Bapt.',feast:'In Decollatione S. Ioannis Baptistæ',en:'Beheading of St John the Baptist',rank:'III',rankline:'Duplex maius · Third class',disp:'29 Augusti mmxxvi · Sabbato'},
+    {wd:'SUN',dd:30,colour:'green',fe:'Dom. XIV',feast:'Dominica XIV post Pentecosten',en:'14th Sunday after Pentecost',rank:'II',rankline:'Semiduplex · Second class',disp:'30 Augusti mmxxvi · Dominica'},
+    {wd:'MON',dd:31,colour:'white',fe:'S. Raymundi',feast:'S. Raymundi Nonnati Confessoris',en:'St Raymond Nonnatus, Confessor',rank:'III',rankline:'Duplex · Third class',disp:'31 Augusti mmxxvi · Feria II'},
+    {wd:'TUE',dd:1,colour:'green',fe:'Feria',feast:'Feria III infra Hebd. XIV',en:'Feria',rank:'IV',rankline:'Feria · Fourth class',disp:'1 Septembris mmxxvi · Feria III'},
+    {wd:'WED',dd:2,colour:'white',fe:'S. Stephani',feast:'S. Stephani Hungariæ Regis',en:'St Stephen of Hungary, King',rank:'III',rankline:'Semiduplex · Third class',disp:'2 Septembris mmxxvi · Feria IV'},
+    {wd:'THU',dd:3,colour:'white',fe:'S. Pii X',feast:'S. Pii X Papæ Confessoris',en:'Pope St Pius X, Confessor',rank:'I',rankline:'Duplex · First class',disp:'3 Septembris mmxxvi · Feria V'},
+    {wd:'FRI',dd:4,colour:'green',fe:'Feria',feast:'Feria VI infra Hebd. XIV',en:'Feria',rank:'IV',rankline:'Feria · Fourth class',disp:'4 Septembris mmxxvi · Feria VI'},
+    {wd:'SAT',dd:5,colour:'white',fe:'S. Laurentii',feast:'S. Laurentii Iustiniani Episcopi',en:'St Laurence Justinian, Bishop',rank:'III',rankline:'Semiduplex · Third class',disp:'5 Septembris mmxxvi · Sabbato'},
+    {wd:'SUN',dd:6,colour:'green',fe:'Dom. XV',feast:'Dominica XV post Pentecosten',en:'15th Sunday after Pentecost',rank:'II',rankline:'Semiduplex · Second class',disp:'6 Septembris mmxxvi · Dominica'},
+    {wd:'MON',dd:7,colour:'green',fe:'Feria',feast:'Feria II infra Hebd. XV',en:'Feria',rank:'IV',rankline:'Feria · Fourth class',disp:'7 Septembris mmxxvi · Feria II'},
+    {wd:'TUE',dd:8,colour:'white',fe:'Nativitas',feast:'In Nativitate B. Mariæ Virginis',en:'Nativity of the Blessed Virgin Mary',rank:'II',rankline:'Duplex II class',disp:'8 Septembris mmxxvi · Feria III'},
+    {wd:'WED',dd:9,colour:'green',fe:'Feria',feast:'Feria IV infra Hebd. XV',en:'Feria',rank:'IV',rankline:'Feria · Fourth class',disp:'9 Septembris mmxxvi · Feria IV'},
+    {wd:'THU',dd:10,colour:'white',fe:'S. Nicolai',feast:'S. Nicolai de Tolentino Conf.',en:'St Nicholas of Tolentino, Confessor',rank:'III',rankline:'Duplex · Third class',disp:'10 Septembris mmxxvi · Feria V'},
+    {wd:'FRI',dd:11,colour:'green',fe:'Feria',feast:'Feria VI infra Hebd. XV',en:'Feria',rank:'IV',rankline:'Feria · Fourth class',disp:'11 Septembris mmxxvi · Feria VI'},
+    {wd:'SAT',dd:12,colour:'white',fe:'Nom. Mariæ',feast:'Ss. Nominis Mariæ',en:'The Most Holy Name of Mary',rank:'III',rankline:'Duplex maius · Third class',disp:'12 Septembris mmxxvi · Sabbato'},
+    {wd:'SUN',dd:13,colour:'green',fe:'Dom. XVI',feast:'Dominica XVI post Pentecosten',en:'16th Sunday after Pentecost',rank:'II',rankline:'Semiduplex · Second class',disp:'13 Septembris mmxxvi · Dominica'}
+  ];
+  var COL={white:'--lit-white',red:'--lit-red',green:'--lit-green',violet:'--lit-violet',black:'--lit-black',rose:'--lit-rose'};
+  var TODAY=5;
+
+  function initSlider(root, cfg){
+    var track=root.querySelector('[data-track]');
+    var win=track.parentElement;
+    var left=root.querySelector('[data-left]'), right=root.querySelector('[data-right]');
+    var selected=cfg.selected, start=cfg.start;
+    function vis(){return cfg.vis(win.clientWidth);}
+    function layout(){
+      var n=vis(), cw=win.clientWidth/n;
+      start=Math.max(0,Math.min(start,DAYS.length-n));
+      for(var i=0;i<track.children.length;i++){track.children[i].style.width=cw+'px';}
+      track.style.transform='translateX('+(-start*cw)+'px)';
+    }
+    function build(){
+      var html='';
+      for(var i=0;i<DAYS.length;i++){html+=cfg.cell(DAYS[i],i,selected);}
+      track.innerHTML=html; layout();
+    }
+    left.addEventListener('click',function(){start=Math.max(0,start-1);layout();});
+    right.addEventListener('click',function(){var n=vis();start=Math.min(DAYS.length-n,start+1);layout();});
+    track.addEventListener('click',function(e){var b=e.target.closest('[data-i]');if(b){selected=+b.getAttribute('data-i');if(cfg.onSelect)cfg.onSelect(selected);build();}});
+    window.addEventListener('resize',layout);
+    build();
+  }
+  function stripCell(d,i,sel){
+    return '<button class="sd'+(i===TODAY?' today':'')+(i===sel&&sel!==TODAY?' sel':'')+'" data-i="'+i+'">'
+      +'<span class="wd">'+d.wd+'</span><span class="dd">'+d.dd+'</span><span class="fe">'+d.fe+'</span>'
+      +'<span class="cd" style="background:var('+COL[d.colour]+')"></span></button>';
+  }
+  function navCell(d,i,sel){
+    return '<button class="sd'+(i===sel?' today':'')+'" data-i="'+i+'">'
+      +'<span class="wd">'+d.wd+'</span><span class="dd">'+d.dd+'</span>'
+      +'<span class="cd" style="background:var('+COL[d.colour]+')"></span></button>';
+  }
+  function loadDay(i){
+    var d=DAYS[i];
+    document.getElementById('m-date').textContent=d.disp;
+    document.getElementById('m-rankline').textContent=d.rankline;
+    document.getElementById('m-feast').textContent=d.feast;
+    document.getElementById('m-en').textContent=d.en;
+    document.getElementById('m-rankchip').textContent=d.rank;
+    document.getElementById('m-colourdot').style.background='var('+COL[d.colour]+')';
+    document.getElementById('m-colourname').textContent=d.colour.charAt(0).toUpperCase()+d.colour.slice(1);
+  }
+  var stripCfg={selected:TODAY,start:2,vis:function(w){return w<440?3:(w<680?5:7);},cell:stripCell};
+  initSlider(document.getElementById('strip-full'), stripCfg);
+  initSlider(document.getElementById('strip-phone'), {selected:TODAY,start:2,vis:stripCfg.vis,cell:stripCell});
+  initSlider(document.getElementById('dnav'), {selected:TODAY,start:2,vis:function(w){return w<360?3:(w<520?5:7);},cell:navCell,onSelect:loadDay});
+})();
+</script>
+</body>
+</html>
