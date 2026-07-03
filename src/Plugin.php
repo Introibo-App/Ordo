@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Introibo\Ordo;
 
+use Introibo\Ordo\Admin\Settings;
 use Introibo\Ordo\Engine\Core;
 
 /**
@@ -11,9 +12,9 @@ use Introibo\Ordo\Engine\Core;
  *
  * This is the composition root. It registers the pretty-permalink route, loads
  * translations, wires every surface (the today card, masthead, month grid and their
- * blocks), the day-view REST route and the /ordo/ day page, and registers the
- * assets; settings attach here as that epic lands. It holds the single {@see Core}
- * engine boundary so every surface shares one instance.
+ * blocks), the day-view REST route, the /ordo/ day page and the admin settings
+ * screen, and registers the assets. It holds the single {@see Core} engine boundary
+ * so every surface shares one instance.
  */
 final class Plugin
 {
@@ -46,6 +47,7 @@ final class Plugin
         $blocks = new Blocks($shortcodes);
         $rest = new Rest($this->engine);
         $dayRoute = new DayRoute($assets);
+        $settings = new Settings();
 
         add_action('init', array(Rewrites::class, 'register'));
         add_action('init', array($this, 'loadTextDomain'));
@@ -55,6 +57,7 @@ final class Plugin
         add_action('rest_api_init', array($rest, 'register'));
 
         $dayRoute->register();
+        $settings->register();
     }
 
     /** Load the plugin's translations from the bundled /languages directory. */

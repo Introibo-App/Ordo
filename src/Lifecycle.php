@@ -44,8 +44,9 @@ final class Lifecycle
     {
         add_option(ORDO_OPTION_PREFIX . 'version', ORDO_VERSION);
         add_option(ORDO_OPTION_PREFIX . 'settings', array(
-            'calendar' => 'universal',
-            'palette'  => 'illuminated',
+            'calendar'            => 'universal',
+            'palette'             => 'illuminated',
+            'show_commemorations' => true,
         ));
     }
 }

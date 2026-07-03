@@ -19,6 +19,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class DayViewTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        $GLOBALS['__ordo_options'] = [];
+    }
+
     private function day(string $iso, ?string $calendar = null): DayPresenter
     {
         return new DayPresenter((new Core())->day(new DateTimeImmutable($iso), $calendar));
@@ -45,6 +50,23 @@ final class DayViewTest extends TestCase
 
         self::assertStringContainsString('Commemorations', $html);
         self::assertStringContainsString('Ss. Euphemiae Virginis et Martyris', $html);
+    }
+
+    public function testDisplayPreferenceHidesCommemorations(): void
+    {
+        // The "show commemorations" setting drives the day view through Context::current.
+        $GLOBALS['__ordo_options']['ordo_settings'] = [
+            'calendar' => 'universal',
+            'show_commemorations' => false,
+        ];
+
+        $html = DayView::article($this->day('2026-09-16'), Context::current());
+
+        // A day that otherwise lists commemorations now omits the whole column.
+        self::assertStringNotContainsString('Commemorations', $html);
+        self::assertStringNotContainsString('Ss. Euphemiae Virginis et Martyris', $html);
+        // The office column still renders.
+        self::assertStringContainsString('The office', $html);
     }
 
     public function testPageWrapsArticleWithLatinDate(): void

@@ -48,7 +48,9 @@ final class DayView
         $html .= '</div>';
 
         $html .= '<div class="ordo-day__cols">';
-        $html .= self::commemorationsColumn($day);
+        if ($context->showCommemorations()) {
+            $html .= self::commemorationsColumn($day);
+        }
         $html .= self::officeColumn($day, $context);
         $html .= '</div>';
 
