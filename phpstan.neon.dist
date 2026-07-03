@@ -11,6 +11,10 @@ parameters:
         - tests
     excludePaths:
         - src/Core/*
+        # The WordPress function stubs redeclare core functions (guarded) purely so
+        # the tests run without WordPress; phpstan-wordpress already provides the real
+        # signatures, so analysing the stubs would only double-declare them.
+        - tests/wp-stubs.php
     scanDirectories:
         - src/Core/src
     bootstrapFiles:

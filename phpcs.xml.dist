@@ -21,8 +21,10 @@
     <rule ref="PSR12"/>
 
     <!-- The plugin entry point is a WordPress bootstrap: it legitimately both defines
-         constants and registers hooks, which the "no side effects" sniff forbids. -->
+         constants and registers hooks, which the "no side effects" sniff forbids. The
+         WordPress stubs likewise guard their function declarations behind conditionals. -->
     <rule ref="PSR1.Files.SideEffects">
         <exclude-pattern>ordo.php</exclude-pattern>
+        <exclude-pattern>*/tests/wp-stubs.php</exclude-pattern>
     </rule>
 </ruleset>

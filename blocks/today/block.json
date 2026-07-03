@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ordo/today",
+	"version": "0.1.0",
+	"title": "Ordo — Today",
+	"category": "widgets",
+	"icon": "calendar-alt",
+	"description": "The current liturgical day: title, class, colour and season, with a link into the day view.",
+	"keywords": ["ordo", "liturgical", "calendar", "today", "feast"],
+	"textdomain": "ordo",
+	"supports": {
+		"html": false,
+		"align": ["wide"]
+	},
+	"attributes": {
+		"date": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"editorScript": "ordo-block-today",
+	"style": "ordo",
+	"editorStyle": "ordo"
+}
