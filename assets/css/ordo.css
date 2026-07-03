@@ -673,6 +673,11 @@
 	margin-top: 14px;
 }
 
+/* When commemorations are hidden in settings, the lone office column spans the row. */
+.ordo .ordo-day__cols > .ordo-day__col:only-child {
+	grid-column: 1 / -1;
+}
+
 .ordo .ordo-day__h {
 	font-family: var(--ordo-sc);
 	font-size: 11px;

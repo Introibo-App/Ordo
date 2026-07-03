@@ -42,10 +42,13 @@
         "analyse": "phpstan analyse",
         "test": "phpunit",
         "guard": "@php bin/check-no-old-engine.php",
+        "i18n": "@php bin/make-pot.php",
+        "i18n:check": "@php bin/check-i18n.php",
         "check": [
             "@lint",
             "@analyse",
             "@guard",
+            "@i18n:check",
             "@test"
         ]
     },
@@ -55,7 +58,9 @@
         "analyse": "Run PHPStan static analysis at the configured level.",
         "test": "Run the PHPUnit test suite.",
         "guard": "Fail if any old-engine reference is present (clean-room guard).",
-        "check": "Run all quality gates locally (lint + analyse + guard + test)."
+        "i18n": "Regenerate languages/ordo.pot from the plugin's translation calls.",
+        "i18n:check": "Fail on a missing text domain, unwrapped prose, or a stale .pot.",
+        "check": "Run all quality gates locally (lint + analyse + guard + i18n + test)."
     },
     "config": {
         "platform": {

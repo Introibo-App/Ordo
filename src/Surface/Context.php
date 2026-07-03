@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Introibo\Ordo\Surface;
 
+use Introibo\Ordo\View\Skin;
+
 /**
- * The rubric system and particular calendar the site is configured to follow —
- * the "which calendar am I looking at?" context every surface carries.
+ * The rubric system, particular calendar and display preferences the site is
+ * configured to follow — the "which calendar am I looking at, and how?" context
+ * every surface carries.
  *
  * v0.1.0 ships a single rubric (the 1962 rubrics of 1960) and defaults to the
- * universal calendar; a site selects a particular calendar (e.g. SSPX) in the
- * settings. The one stored calendar key both selects the engine overlay and
- * labels the context chip, so the two can never drift apart.
+ * universal calendar; a site selects a particular calendar (e.g. SSPX), a skin and
+ * whether commemorations are shown in the settings. The one stored settings array
+ * both selects the engine overlay and labels the context chip, so the two can never
+ * drift apart.
  */
 final class Context
 {
@@ -27,21 +31,30 @@ final class Context
     ];
 
     private string $calendarKey;
+    private string $skinKey;
+    private bool $showCommemorations;
 
-    private function __construct(string $calendarKey)
+    private function __construct(string $calendarKey, string $skinKey = Skin::DEFAULT, bool $showCommemorations = true)
     {
         $this->calendarKey = isset(self::CALENDARS[$calendarKey]) ? $calendarKey : 'universal';
+        $this->skinKey = Skin::normalise($skinKey);
+        $this->showCommemorations = $showCommemorations;
     }
 
     /** The context configured in the site's settings. */
     public static function current(): self
     {
         $settings = get_option(self::OPTION, []);
-        $calendar = is_array($settings) && isset($settings['calendar'])
-            ? (string) $settings['calendar']
-            : 'universal';
+        if (!is_array($settings)) {
+            $settings = [];
+        }
 
-        return new self($calendar);
+        $calendar = isset($settings['calendar']) ? (string) $settings['calendar'] : 'universal';
+        $skin = isset($settings['palette']) ? (string) $settings['palette'] : Skin::DEFAULT;
+        // Absent (a pre-0.1 install) means the shipped default of showing commemorations.
+        $showCommemorations = !isset($settings['show_commemorations']) || (bool) $settings['show_commemorations'];
+
+        return new self($calendar, $skin, $showCommemorations);
     }
 
     /** Construct explicitly for a calendar key (used by the render harness). */
@@ -66,5 +79,17 @@ final class Context
     public function calendarLabel(): string
     {
         return self::CALENDARS[$this->calendarKey];
+    }
+
+    /** The configured white-label skin key ("illuminated", "parchment", "slate"). */
+    public function skin(): string
+    {
+        return $this->skinKey;
+    }
+
+    /** Whether the day view should list the day's commemorations (a display preference). */
+    public function showCommemorations(): bool
+    {
+        return $this->showCommemorations;
     }
 }

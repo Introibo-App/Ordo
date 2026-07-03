@@ -1,0 +1,503 @@
+# Copyright (C) Introibo
+# This file is distributed under the GPL-2.0-or-later license.
+msgid ""
+msgstr ""
+"Project-Id-Version: Ordo 0.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/Introibo-App/Ordo/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Domain: ordo\n"
+
+#: src/View/DayPresenter.php:163
+msgid "%1$s — %2$s week"
+msgstr ""
+
+#: src/Surface/CalendarStrip.php:86
+msgid "%s classis"
+msgstr ""
+
+#: src/Admin/Settings.php:252
+msgid "About"
+msgstr ""
+
+#: src/Admin/Settings.php:359
+msgid "About Ordo"
+msgstr ""
+
+#: src/Admin/Settings.php:296
+msgid "Active"
+msgstr ""
+
+#: src/View/DayPresenter.php:173
+msgid "Advent"
+msgstr ""
+
+#: src/Admin/Settings.php:248
+msgid "Appearance"
+msgstr ""
+
+#: src/View/Palette.php:51
+msgid "Black"
+msgstr ""
+
+#: src/Admin/Settings.php:246 src/Surface/DayView.php:159
+msgid "Calendar"
+msgstr ""
+
+#: src/Admin/Settings.php:264
+msgid "Calendar preset"
+msgstr ""
+
+#: src/View/DayPresenter.php:175
+msgid "Christmastide"
+msgstr ""
+
+#: src/Surface/DayView.php:42 src/Surface/TodayCard.php:36
+msgid "Class"
+msgstr ""
+
+#: src/Surface/DayView.php:91
+msgid "Close"
+msgstr ""
+
+#: src/View/DayPresenter.php:329
+msgid "Commemoration"
+msgstr ""
+
+#: src/Surface/DayView.php:120
+msgid "Commemorations"
+msgstr ""
+
+#: src/Admin/Settings.php:457
+msgid "Cool charcoal & steel"
+msgstr ""
+
+#: src/Admin/Settings.php:335
+msgid "Day view"
+msgstr ""
+
+#: src/Admin/Settings.php:282
+msgid "Default"
+msgstr ""
+
+#: src/Admin/Settings.php:250
+msgid "Display"
+msgstr ""
+
+#: src/Admin/Settings.php:378
+msgid "Documentation & source"
+msgstr ""
+
+#: src/Surface/CalendarStrip.php:56
+msgid "Earlier days"
+msgstr ""
+
+#: src/View/DayPresenter.php:185
+msgid "Eastertide"
+msgstr ""
+
+#: src/View/DayPresenter.php:325
+msgid "Ember day"
+msgstr ""
+
+#: src/Admin/Settings.php:413
+msgid "FSSP"
+msgstr ""
+
+#: src/View/DayPresenter.php:313
+msgid "Feast"
+msgstr ""
+
+#: src/Surface/DayView.php:155 src/Surface/MonthGrid.php:221 src/View/DayPresenter.php:315
+msgid "Feria"
+msgstr ""
+
+#: src/View/DayPresenter.php:102
+msgid "First class"
+msgstr ""
+
+#: src/View/DayPresenter.php:108
+msgid "Fourth class"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:132
+msgid "Fri"
+msgstr ""
+
+#: src/Admin/Settings.php:372
+msgid "GPL-2.0-or-later — bundles the Introibo Core engine (AGPL-3.0-or-later); calendar data is CC0."
+msgstr ""
+
+#: src/View/Palette.php:47
+msgid "Green"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:174
+msgid "Hodie"
+msgstr ""
+
+#: src/Admin/Settings.php:291
+msgid "How the office is computed. v0.1 implements one rubric system."
+msgstr ""
+
+#: src/Admin/Settings.php:415
+msgid "ICKSP"
+msgstr ""
+
+#: src/Admin/Settings.php:445
+msgid "Illuminated"
+msgstr ""
+
+#: src/Admin/Settings.php:430
+msgid "Institute of Christ the King"
+msgstr ""
+
+#: src/Surface/CalendarStrip.php:61
+msgid "Later days"
+msgstr ""
+
+#: src/View/DayPresenter.php:181
+msgid "Lent"
+msgstr ""
+
+#: src/Admin/Settings.php:371
+msgid "Licence"
+msgstr ""
+
+#: src/Admin/Settings.php:347
+msgid "List the second office and oration on the day view"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:128
+msgid "Mon"
+msgstr ""
+
+#: src/Admin/Settings.php:351
+msgid "More display controls arrive with the Missal and reader milestones."
+msgstr ""
+
+#: src/Admin/Settings.php:459
+msgid "Navy & gold — the shipped identity"
+msgstr ""
+
+#: src/Surface/DayView.php:100
+msgid "Next day"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:118
+msgid "Next month"
+msgstr ""
+
+#: src/Admin/Settings.php:433
+msgid "No particular overlay"
+msgstr ""
+
+#: src/Surface/DayView.php:124
+msgid "None on this day."
+msgstr ""
+
+#: src/View/DayPresenter.php:321
+msgid "Octave day"
+msgstr ""
+
+#: src/View/DayPresenter.php:333
+msgid "Office of the Dead"
+msgstr ""
+
+#: src/Surface/TodayCard.php:54
+msgid "Open the day"
+msgstr ""
+
+#: src/Admin/Settings.php:54
+msgid "Ordo"
+msgstr ""
+
+#: src/Admin/Settings.php:221 src/Admin/Settings.php:53
+msgid "Ordo Settings"
+msgstr ""
+
+#: src/Admin/Settings.php:361
+msgid "Ordo presents the traditional Roman calendar (1962), resolved on this server — no external service."
+msgstr ""
+
+#: ordo.php:53
+msgid "Ordo requires PHP %1$s or newer. This site is running PHP %2$s, so Ordo has not been loaded."
+msgstr ""
+
+#: ordo.php:68
+msgid "Ordo requires PHP %1$s or newer; this site runs PHP %2$s."
+msgstr ""
+
+#: src/View/DayPresenter.php:331
+msgid "Our Lady on Saturday"
+msgstr ""
+
+#: src/Admin/Settings.php:307
+msgid "Palette"
+msgstr ""
+
+#: src/Admin/Settings.php:441
+msgid "Parchment"
+msgstr ""
+
+#: src/View/DayPresenter.php:183
+msgid "Passiontide"
+msgstr ""
+
+#: ordo.php:72
+msgid "Plugin activation failed"
+msgstr ""
+
+#: src/Surface/DayView.php:97
+msgid "Previous day"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:111
+msgid "Previous month"
+msgstr ""
+
+#: src/Admin/Settings.php:428
+msgid "Priestly Fraternity of St Peter"
+msgstr ""
+
+#: src/View/Palette.php:45
+msgid "Red"
+msgstr ""
+
+#: src/View/DayPresenter.php:327
+msgid "Rogation day"
+msgstr ""
+
+#: src/View/Palette.php:53
+msgid "Rose"
+msgstr ""
+
+#: src/Surface/ContextChip.php:19
+msgid "Rubric"
+msgstr ""
+
+#: src/Admin/Settings.php:289
+msgid "Rubric system"
+msgstr ""
+
+#: src/Admin/Settings.php:369 src/Surface/DayView.php:158
+msgid "Rubrics"
+msgstr ""
+
+#: src/Admin/Settings.php:294
+msgid "Rubrics of 1960"
+msgstr ""
+
+#: src/Admin/Settings.php:369
+msgid "Rubrics of 1960 (the 1962 system)"
+msgstr ""
+
+#: src/Admin/Settings.php:411
+msgid "SSPX"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:133
+msgid "Sat"
+msgstr ""
+
+#: src/Admin/Settings.php:210
+msgid "Save changes"
+msgstr ""
+
+#: src/Surface/DayView.php:150 src/Surface/TodayCard.php:46
+msgid "Season"
+msgstr ""
+
+#: src/View/DayPresenter.php:104
+msgid "Second class"
+msgstr ""
+
+#: src/View/DayPresenter.php:179
+msgid "Septuagesima"
+msgstr ""
+
+#: src/Admin/Settings.php:345
+msgid "Show commemorations"
+msgstr ""
+
+#: src/Admin/Settings.php:443
+msgid "Slate"
+msgstr ""
+
+#: src/Admin/Settings.php:426
+msgid "Society of St Pius X"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:127
+msgid "Sun"
+msgstr ""
+
+#: src/View/DayPresenter.php:317
+msgid "Sunday"
+msgstr ""
+
+#: src/Rest.php:71
+msgid "That date cannot be resolved."
+msgstr ""
+
+#: src/Admin/Settings.php:295
+msgid "The 1962 rubrical system"
+msgstr ""
+
+#: src/Admin/Settings.php:266
+msgid "The calendar this site follows. Presets layer a society’s feasts over the universal 1962 calendar."
+msgstr ""
+
+#: src/Admin/Settings.php:309
+msgid "The colour scheme applied to every Ordo surface on the site."
+msgstr ""
+
+#: src/Surface/DayView.php:145
+msgid "The office"
+msgstr ""
+
+#: src/View/DayPresenter.php:106
+msgid "Third class"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:131
+msgid "Thu"
+msgstr ""
+
+#: src/View/DayPresenter.php:177
+msgid "Time after Epiphany"
+msgstr ""
+
+#: src/View/DayPresenter.php:187
+msgid "Time after Pentecost"
+msgstr ""
+
+#: src/Surface/TodayCard.php:26
+msgid "Today · Hodie"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:129
+msgid "Tue"
+msgstr ""
+
+#: src/Admin/Settings.php:418
+msgid "Universal 1962"
+msgstr ""
+
+#: src/Admin/Settings.php:368
+msgid "Version"
+msgstr ""
+
+#: src/View/DayPresenter.php:319
+msgid "Vigil"
+msgstr ""
+
+#: src/View/Palette.php:49
+msgid "Violet"
+msgstr ""
+
+#: src/Admin/Settings.php:455
+msgid "Warm sepia on cream"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:130
+msgid "Wed"
+msgstr ""
+
+#: src/Admin/Settings.php:337
+msgid "What the calendar day view shows alongside the day’s office."
+msgstr ""
+
+#: src/View/Palette.php:56
+msgid "White"
+msgstr ""
+
+#: src/View/DayPresenter.php:323
+msgid "Within the octave"
+msgstr ""
+
+#: src/Surface/MonthGrid.php:116
+msgid "Year"
+msgstr ""
+
+#: src/Surface/ContextChip.php:20 src/Surface/ContextChip.php:30
+msgctxt "abbreviation of \"calendar\""
+msgid "Cal."
+msgstr ""
+
+#: blocks/calendar/block.json
+msgctxt "block description"
+msgid "A month grid of liturgical days; each day opens its day view."
+msgstr ""
+
+#: blocks/calendar-strip/block.json
+msgctxt "block description"
+msgid "A rolling week of liturgical days, centred on today; slides a day at a time."
+msgstr ""
+
+#: blocks/today/block.json
+msgctxt "block description"
+msgid "The current liturgical day: title, class, colour and season, with a link into the day view."
+msgstr ""
+
+#: blocks/calendar-strip/block.json blocks/calendar/block.json blocks/today/block.json
+msgctxt "block keyword"
+msgid "calendar"
+msgstr ""
+
+#: blocks/today/block.json
+msgctxt "block keyword"
+msgid "feast"
+msgstr ""
+
+#: blocks/calendar/block.json
+msgctxt "block keyword"
+msgid "grid"
+msgstr ""
+
+#: blocks/calendar-strip/block.json blocks/calendar/block.json blocks/today/block.json
+msgctxt "block keyword"
+msgid "liturgical"
+msgstr ""
+
+#: blocks/calendar-strip/block.json
+msgctxt "block keyword"
+msgid "masthead"
+msgstr ""
+
+#: blocks/calendar/block.json
+msgctxt "block keyword"
+msgid "month"
+msgstr ""
+
+#: blocks/calendar-strip/block.json blocks/calendar/block.json blocks/today/block.json
+msgctxt "block keyword"
+msgid "ordo"
+msgstr ""
+
+#: blocks/today/block.json
+msgctxt "block keyword"
+msgid "today"
+msgstr ""
+
+#: blocks/calendar-strip/block.json
+msgctxt "block keyword"
+msgid "week"
+msgstr ""
+
+#: blocks/calendar-strip/block.json
+msgctxt "block title"
+msgid "Ordo — Calendar strip"
+msgstr ""
+
+#: blocks/calendar/block.json
+msgctxt "block title"
+msgid "Ordo — Month calendar"
+msgstr ""
+
+#: blocks/today/block.json
+msgctxt "block title"
+msgid "Ordo — Today"
+msgstr ""

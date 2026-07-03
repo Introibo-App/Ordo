@@ -1,0 +1,294 @@
+/*!
+ * Ordo — settings screen (Surface 5 of the Illuminated Breviary mockup).
+ * Admin-only chrome, enqueued solely on the Ordo settings page. Scoped under
+ * .ordo-admin so it never touches the rest of wp-admin. Tokens mirror the
+ * 3mi.org / Mary Michael Machabee design system used by the front-end surfaces.
+ */
+.ordo-admin {
+	--oa-navy: #0b1d4a;
+	--oa-ink: #222a35;
+	--oa-muted: #6f7682;
+	--oa-gold: #a97f2e;
+	--oa-gold-ink: #856420;
+	--oa-cream: #fbf6ec;
+	--oa-keyline: rgba(169, 127, 46, 0.42);
+	--oa-line: #e3e6ec;
+	--oa-serif: "Cormorant Garamond", "Cormorant", Garamond, "Hoefler Text", Georgia, serif;
+	--oa-sc: "Cormorant SC", "Cormorant Garamond", Garamond, Georgia, serif;
+	--oa-radius: 3px;
+	max-width: 860px;
+}
+
+.ordo-admin__top {
+	display: flex;
+	align-items: center;
+	gap: 11px;
+	background: #fff;
+	border: 1px solid #d7dae2;
+	border-bottom: none;
+	border-radius: var(--oa-radius) var(--oa-radius) 0 0;
+	padding: 15px 22px;
+}
+
+.ordo-admin__cross {
+	color: var(--oa-gold);
+	font-size: 20px;
+	line-height: 1;
+}
+
+.ordo-admin__title {
+	font-family: var(--oa-serif);
+	font-size: 24px;
+	font-weight: 600;
+	color: var(--oa-navy);
+	margin: 0;
+	padding: 0;
+}
+
+.ordo-admin__ver {
+	margin-left: auto;
+	font-family: var(--oa-sc);
+	letter-spacing: 0.08em;
+	font-size: 11px;
+	color: var(--oa-muted);
+	background: #eef0f4;
+	border: 1px solid #e0e3e9;
+	border-radius: 2px;
+	padding: 3px 8px;
+}
+
+.ordo-admin__tabs {
+	display: flex;
+	gap: 2px;
+	padding: 0 18px;
+	background: #fff;
+	border: 1px solid #d7dae2;
+	border-top: none;
+	border-bottom: 1px solid var(--oa-line);
+}
+
+.ordo-admin__tab {
+	font-family: var(--oa-sc);
+	letter-spacing: 0.06em;
+	text-decoration: none;
+	padding: 11px 15px 9px;
+	font-size: 14px;
+	color: var(--oa-muted);
+	border-bottom: 2px solid transparent;
+	box-shadow: none;
+}
+
+.ordo-admin__tab:hover,
+.ordo-admin__tab:focus {
+	color: var(--oa-navy);
+}
+
+.ordo-admin__tab.is-active {
+	color: var(--oa-navy);
+	border-bottom-color: var(--oa-gold);
+	font-weight: 600;
+}
+
+.ordo-admin__form {
+	margin: 0;
+}
+
+.ordo-admin__body {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 18px;
+	background: #f0f1f4;
+	border: 1px solid #d7dae2;
+	border-top: none;
+	border-radius: 0 0 var(--oa-radius) var(--oa-radius);
+	padding: 20px 22px 24px;
+}
+
+.ordo-admin__body--single {
+	grid-template-columns: 1fr;
+}
+
+@media (max-width: 782px) {
+	.ordo-admin__body {
+		grid-template-columns: 1fr;
+	}
+}
+
+.ordo-card {
+	background: #fff;
+	border: 1px solid var(--oa-line);
+	border-radius: var(--oa-radius);
+	padding: 16px 17px;
+}
+
+.ordo-card__h {
+	margin: 0 0 3px;
+	padding: 0;
+	font-family: var(--oa-serif);
+	font-size: 19px;
+	font-weight: 600;
+	color: var(--oa-navy);
+}
+
+.ordo-card__note {
+	margin: 0 0 13px;
+	font-size: 12.5px;
+	color: var(--oa-muted);
+	line-height: 1.45;
+}
+
+.ordo-card__foot {
+	margin: 13px 0 0;
+	font-size: 12px;
+	color: var(--oa-muted);
+}
+
+.ordo-opt {
+	display: flex;
+	align-items: center;
+	gap: 11px;
+	padding: 9px 0;
+	border-top: 1px solid #eef0f4;
+	margin: 0;
+	cursor: pointer;
+}
+
+.ordo-opt:first-of-type {
+	border-top: none;
+}
+
+.ordo-opt--locked {
+	cursor: default;
+	opacity: 0.85;
+}
+
+.ordo-opt input {
+	margin: 0;
+	flex: none;
+}
+
+.ordo-opt__text {
+	display: flex;
+	flex-direction: column;
+}
+
+.ordo-opt__label {
+	font-family: var(--oa-serif);
+	font-size: 17px;
+	font-weight: 600;
+	color: var(--oa-navy);
+	line-height: 1.1;
+}
+
+.ordo-opt__note {
+	font-size: 11.5px;
+	color: var(--oa-muted);
+	margin-top: 2px;
+}
+
+.ordo-opt__tag {
+	margin-left: auto;
+	font-family: var(--oa-sc);
+	font-size: 10px;
+	letter-spacing: 0.1em;
+	color: var(--oa-gold-ink);
+	font-weight: 600;
+	background: var(--oa-cream);
+	border: 1px solid var(--oa-keyline);
+	border-radius: 2px;
+	padding: 2px 7px;
+}
+
+.ordo-palettes {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.ordo-palette {
+	flex: 1;
+	min-width: 120px;
+	border: 1px solid var(--oa-line);
+	border-radius: 2px;
+	padding: 10px;
+	text-align: center;
+	cursor: pointer;
+	display: block;
+}
+
+.ordo-palette.is-active {
+	border-color: var(--oa-gold);
+	box-shadow: 0 0 0 1px var(--oa-gold);
+}
+
+.ordo-palette__input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.ordo-palette__bar {
+	display: flex;
+	height: 16px;
+	border-radius: 2px;
+	overflow: hidden;
+	margin-bottom: 8px;
+}
+
+.ordo-palette__bar span {
+	flex: 1;
+}
+
+.ordo-palette__label {
+	display: block;
+	font-family: var(--oa-sc);
+	letter-spacing: 0.06em;
+	font-size: 13px;
+	color: var(--oa-navy);
+	font-weight: 600;
+}
+
+.ordo-palette__note {
+	display: block;
+	font-size: 11px;
+	color: var(--oa-muted);
+	margin-top: 2px;
+}
+
+.ordo-about {
+	margin: 0;
+}
+
+.ordo-about__row {
+	display: flex;
+	gap: 14px;
+	padding: 9px 0;
+	border-top: 1px solid #eef0f4;
+}
+
+.ordo-about__row:first-child {
+	border-top: none;
+}
+
+.ordo-about__row dt {
+	flex: none;
+	width: 90px;
+	font-family: var(--oa-sc);
+	letter-spacing: 0.06em;
+	font-size: 12px;
+	color: var(--oa-gold-ink);
+	text-transform: uppercase;
+	padding-top: 2px;
+}
+
+.ordo-about__row dd {
+	margin: 0;
+	font-size: 13.5px;
+	color: var(--oa-ink);
+	line-height: 1.5;
+}
+
+.ordo-admin .ordo-palette:focus-within {
+	outline: 2px solid var(--oa-navy);
+	outline-offset: 2px;
+}

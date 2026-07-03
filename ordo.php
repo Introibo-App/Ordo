@@ -5,7 +5,7 @@
  * Plugin URI:        https://github.com/Introibo-App/Ordo
  * Description:       The traditional Roman liturgical calendar (1962) for WordPress. Bundles the Introibo engine.
  * Version:           0.1.0
- * Requires at least: 6.0
+ * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            Introibo
  * Author URI:        https://github.com/Introibo-App
