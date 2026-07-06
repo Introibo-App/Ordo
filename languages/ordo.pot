@@ -127,7 +127,7 @@ msgid "Fri"
 msgstr ""
 
 #: src/Admin/Settings.php:372
-msgid "GPL-2.0-or-later — bundles the Directorium Core engine (AGPL-3.0-or-later); calendar data is CC0."
+msgid "GPL-2.0-or-later — bundles Directorium Core (AGPL-3.0-or-later); calendar data is CC0."
 msgstr ""
 
 #: src/View/Palette.php:47
