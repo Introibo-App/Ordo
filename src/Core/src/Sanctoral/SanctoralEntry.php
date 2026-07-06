@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Core\Sanctoral;
+namespace Directorium\Core\Sanctoral;
 
-use Introibo\Core\Attribute\ElementColour;
-use Introibo\Core\Attribute\RankClass;
-use Introibo\Core\Citation\CitationSet;
-use Introibo\Core\Observance\Observance;
-use Introibo\Core\Observance\ObservanceId;
+use Directorium\Core\Attribute\ElementColour;
+use Directorium\Core\Attribute\LegacyRank;
+use Directorium\Core\Attribute\RankClass;
+use Directorium\Core\Citation\CitationSet;
+use Directorium\Core\Observance\Observance;
+use Directorium\Core\Observance\ObservanceId;
 use InvalidArgumentException;
 
 /**
@@ -19,11 +20,15 @@ use InvalidArgumentException;
  * the Layer-1 {@see Observance} identity, and the 1962 {@see RankClass} and
  * {@see ElementColour} it wears. A vigil additionally records the id of the
  * feast it is the vigil OF ({@see vigilOfId}); the loader then places it on the
- * preceding day. Trailing optionals let later issues add data, not constructor
- * churn: {@see vigilOfId} arrived with #27 vigils, and {@see citations} arrives
- * with the cited corpus (#41) — the {@see CitationSet} the corpus generator (#38)
- * attaches per datum, carried here ready for the output contract's reserved
- * `citations` slot to surface in a later issue. See
+ * preceding day. A day within an octave, or an octave day, likewise records the
+ * feast whose octave it belongs to ({@see octaveOfId}); pre-1955 editions
+ * materialize those days as placement data exactly as vigils are (Core v0.3.0,
+ * #65 — the 1960 edition has no sanctoral octaves, so it carries none). Trailing
+ * optionals let later issues add data, not constructor churn: {@see vigilOfId}
+ * arrived with #27 vigils, {@see citations} with the cited corpus (#41) — the
+ * {@see CitationSet} the corpus generator (#38) attaches per datum, carried here
+ * ready for the output contract's reserved `citations` slot — {@see legacyRank}
+ * with the 1954 engine (#64), and {@see octaveOfId} with its octaves (#65). See
  * docs/design/sanctoral-overlay-model.md.
  *
  * Immutable: it holds only value objects and two integers.
@@ -44,6 +49,10 @@ final class SanctoralEntry
 
     private CitationSet $citations;
 
+    private ?LegacyRank $legacyRank;
+
+    private ?ObservanceId $octaveOfId;
+
     public function __construct(
         int $month,
         int $day,
@@ -51,7 +60,9 @@ final class SanctoralEntry
         RankClass $rank,
         ElementColour $colour,
         ?ObservanceId $vigilOfId = null,
-        ?CitationSet $citations = null
+        ?CitationSet $citations = null,
+        ?LegacyRank $legacyRank = null,
+        ?ObservanceId $octaveOfId = null
     ) {
         if ($month < 1 || $month > 12) {
             throw new InvalidArgumentException(sprintf('Month must be 1-12, got %d.', $month));
@@ -67,6 +78,8 @@ final class SanctoralEntry
         $this->colour = $colour;
         $this->vigilOfId = $vigilOfId;
         $this->citations = $citations ?? CitationSet::empty();
+        $this->legacyRank = $legacyRank;
+        $this->octaveOfId = $octaveOfId;
     }
 
     public function month(): int
@@ -106,8 +119,33 @@ final class SanctoralEntry
         return $this->citations;
     }
 
+    /**
+     * The native pre-1960 grade token (duplex/semiduplex/simplex…) for a legacy edition,
+     * or null under the 1960 rank scheme. Carried alongside the normalized {@see RankClass}
+     * so the 1954/1955 precedence engines can order the fine grades the four classes collapse.
+     */
+    public function legacyRank(): ?LegacyRank
+    {
+        return $this->legacyRank;
+    }
+
+    /**
+     * The id of the feast whose octave this entry belongs to — a day within the
+     * octave or the octave day — or null when it is not part of an octave. The
+     * {@see Observance} kind (within-octave vs octave-day) distinguishes the two.
+     */
+    public function octaveOfId(): ?ObservanceId
+    {
+        return $this->octaveOfId;
+    }
+
     public function isVigil(): bool
     {
         return $this->vigilOfId !== null;
+    }
+
+    public function isOctave(): bool
+    {
+        return $this->octaveOfId !== null;
     }
 }

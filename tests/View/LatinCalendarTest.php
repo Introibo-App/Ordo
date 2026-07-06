@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests\View;
+namespace Directorium\Ordo\Tests\View;
 
 use DateTimeImmutable;
-use Introibo\Ordo\View\LatinCalendar;
+use Directorium\Ordo\View\LatinCalendar;
 use PHPUnit\Framework\TestCase;
 
 /**

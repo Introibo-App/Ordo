@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\View;
+namespace Directorium\Ordo\View;
 
 /**
  * The liturgical colours a surface can paint, each mapped to the two CSS custom

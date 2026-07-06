@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\View;
+namespace Directorium\Ordo\View;
 
 /**
  * The white-label skins a site can choose in settings: named recolourings of the

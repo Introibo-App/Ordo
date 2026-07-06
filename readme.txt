@@ -1,5 +1,5 @@
 === Ordo ===
-Contributors: introibo
+Contributors: directorium
 Tags: liturgical, calendar, catholic, latin-mass, traditional
 Requires at least: 6.3
 Tested up to: 6.8
@@ -8,11 +8,11 @@ Stable tag: 0.1.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-The traditional Roman liturgical calendar (1962) for WordPress. Bundles the Introibo engine and resolves every day on your server — no external service.
+The traditional Roman liturgical calendar (1962) for WordPress. Bundles the Directorium engine and resolves every day on your server — no external service.
 
 == Description ==
 
-**Ordo** presents the traditional Roman liturgical calendar — the Rubrics of 1960 (the 1962 editio typica) — on any WordPress site. It bundles the clean-room Introibo engine and computes every day locally, so it works with **no API key and no external dependency**.
+**Ordo** presents the traditional Roman liturgical calendar — the Rubrics of 1960 (the 1962 editio typica) — on any WordPress site. It bundles the clean-room Directorium engine and computes every day locally, so it works with **no API key and no external dependency**.
 
 The interface adopts the navy-and-gold "Illuminated Breviary" design and is fully self-contained.
 
@@ -34,7 +34,7 @@ Ordo renders only what the engine can state from the calendar: the winning celeb
 
 **Licensing**
 
-Ordo is licensed **GPL-2.0-or-later**. It bundles the Introibo Core engine (under `src/Core/`), which is licensed **AGPL-3.0-or-later**; the two are compatible because GPL-2.0-or-later reaches GPLv3, with which AGPL-3.0 combines. The compiled calendar dataset (`src/Core/data/corpus/`) is released under **CC0**.
+Ordo is licensed **GPL-2.0-or-later**. It bundles the Directorium Core engine (under `src/Core/`), which is licensed **AGPL-3.0-or-later**; the two are compatible because GPL-2.0-or-later reaches GPLv3, with which AGPL-3.0 combines. The compiled calendar dataset (`src/Core/data/corpus/`) is released under **CC0**.
 
 == Installation ==
 
@@ -49,7 +49,7 @@ Requires PHP 7.4 or newer and WordPress 6.3 or newer (the blocks use the iframed
 
 = Does Ordo need an internet connection or an API key? =
 
-No. The v0.1 release bundles the engine and resolves every day on your own server. A later release adds an optional thin-client mode backed by the Introibo API.
+No. The v0.1 release bundles the engine and resolves every day on your own server. A later release adds an optional thin-client mode backed by the Directorium API.
 
 = Which rubrics does it follow? =
 
@@ -77,7 +77,7 @@ Yes. Every day links to its `/ordo/YYYY-MM-DD/` page; the modal is a progressive
 == Changelog ==
 
 = 0.1.0 =
-* Initial release — a standalone plugin that bundles the Introibo engine (no external dependency).
+* Initial release — a standalone plugin that bundles the Directorium engine (no external dependency).
 * Today card (`[ordo_today]`) and its block.
 * Masthead calendar strip (`[ordo_calendar_strip]`, with a one-line `ribbon` variant) and its block.
 * Month calendar (`[ordo_calendar]`) with a mobile agenda, and its block.

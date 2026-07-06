@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests\Admin;
+namespace Directorium\Ordo\Tests\Admin;
 
-use Introibo\Ordo\Admin\Settings;
+use Directorium\Ordo\Admin\Settings;
 use PHPUnit\Framework\TestCase;
 
 /**

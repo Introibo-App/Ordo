@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests\View;
+namespace Directorium\Ordo\Tests\View;
 
-use Introibo\Ordo\View\Skin;
+use Directorium\Ordo\View\Skin;
 use PHPUnit\Framework\TestCase;
 
 /**

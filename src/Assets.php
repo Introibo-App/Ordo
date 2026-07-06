@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo;
+namespace Directorium\Ordo;
 
-use Introibo\Ordo\Surface\Context;
-use Introibo\Ordo\Surface\DayView;
-use Introibo\Ordo\View\Skin;
+use Directorium\Ordo\Surface\Context;
+use Directorium\Ordo\Surface\DayView;
+use Directorium\Ordo\View\Skin;
 
 /**
  * Registers and enqueues the plugin's front-end and block-editor assets.

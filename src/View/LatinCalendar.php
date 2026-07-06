@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\View;
+namespace Directorium\Ordo\View;
 
 use DateTimeInterface;
 

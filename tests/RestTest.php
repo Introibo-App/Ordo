@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests;
+namespace Directorium\Ordo\Tests;
 
 use DateTimeImmutable;
-use Introibo\Ordo\Engine\Core;
-use Introibo\Ordo\Rest;
-use Introibo\Ordo\Surface\Context;
+use Directorium\Ordo\Engine\Core;
+use Directorium\Ordo\Rest;
+use Directorium\Ordo\Surface\Context;
 use PHPUnit\Framework\TestCase;
 
 /**

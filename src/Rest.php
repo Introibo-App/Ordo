@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo;
+namespace Directorium\Ordo;
 
 use DateTimeImmutable;
-use Introibo\Ordo\Engine\Core;
-use Introibo\Ordo\Support\IsoDate;
-use Introibo\Ordo\Surface\Context;
-use Introibo\Ordo\Surface\DayView;
-use Introibo\Ordo\View\DayPresenter;
-use Introibo\Ordo\View\LatinCalendar;
-use Introibo\Ordo\View\Palette;
+use Directorium\Ordo\Engine\Core;
+use Directorium\Ordo\Support\IsoDate;
+use Directorium\Ordo\Surface\Context;
+use Directorium\Ordo\Surface\DayView;
+use Directorium\Ordo\View\DayPresenter;
+use Directorium\Ordo\View\LatinCalendar;
+use Directorium\Ordo\View\Palette;
 
 /**
  * The read-only REST route that feeds the day-view modal: GET /wp-json/ordo/v1/day/

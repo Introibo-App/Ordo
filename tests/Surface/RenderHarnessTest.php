@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests\Surface;
+namespace Directorium\Ordo\Tests\Surface;
 
-use Introibo\Ordo\Assets;
-use Introibo\Ordo\Engine\Core;
-use Introibo\Ordo\Shortcodes;
+use Directorium\Ordo\Assets;
+use Directorium\Ordo\Engine\Core;
+use Directorium\Ordo\Shortcodes;
 use PHPUnit\Framework\TestCase;
 
 /**

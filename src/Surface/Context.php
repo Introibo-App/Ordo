@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Surface;
+namespace Directorium\Ordo\Surface;
 
-use Introibo\Ordo\View\Skin;
+use Directorium\Ordo\View\Skin;
 
 /**
  * The rubric system, particular calendar and display preferences the site is

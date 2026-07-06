@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Support;
+namespace Directorium\Ordo\Support;
 
 use DateTimeImmutable;
 

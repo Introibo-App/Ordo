@@ -6,7 +6,7 @@
  * here they are declared (guarded) purely so analysis of the class files that read
  * them does not report an undefined constant.
  *
- * @package Introibo\Ordo
+ * @package Directorium\Ordo
  */
 
 declare(strict_types=1);

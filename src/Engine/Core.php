@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Engine;
+namespace Directorium\Ordo\Engine;
 
 use DateTimeImmutable;
 
-use function Introibo\Core\contract;
+use function Directorium\Core\contract;
 
 /**
- * The single boundary between the plugin and the bundled Introibo engine.
+ * The single boundary between the plugin and the bundled Directorium engine.
  *
  * Every liturgical fact the plugin renders passes through here, so the rest of
  * the plugin never calls the engine directly — mirroring the API's one-gateway
@@ -21,7 +21,7 @@ final class Core
 {
     /**
      * The resolved output contract for a civil date, as the versioned JSON-ready
-     * array the whole Introibo platform shares (celebration, commemorations,
+     * array the whole Directorium platform shares (celebration, commemorations,
      * season, provenance, and — when a particular calendar is named — its stamp).
      *
      * @param string|null $calendar The particular calendar to resolve under: null

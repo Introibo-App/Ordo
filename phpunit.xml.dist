@@ -6,7 +6,7 @@
          failOnRisky="true"
          failOnWarning="true">
     <testsuites>
-        <testsuite name="introibo-ordo">
+        <testsuite name="directorium-ordo">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

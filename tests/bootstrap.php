@@ -10,7 +10,7 @@
  * autoloader loads on a live site — and the WordPress function stubs stand in for
  * the escaping, translation and option helpers the surfaces call.
  *
- * @package Introibo\Ordo
+ * @package Directorium\Ordo
  */
 
 declare(strict_types=1);

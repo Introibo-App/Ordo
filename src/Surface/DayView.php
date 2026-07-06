@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Surface;
+namespace Directorium\Ordo\Surface;
 
-use Introibo\Ordo\View\DayPresenter;
-use Introibo\Ordo\View\LatinCalendar;
-use Introibo\Ordo\View\Palette;
+use Directorium\Ordo\View\DayPresenter;
+use Directorium\Ordo\View\LatinCalendar;
+use Directorium\Ordo\View\Palette;
 
 /**
  * The full day view: one day's office as the plugin can state it from the bundled

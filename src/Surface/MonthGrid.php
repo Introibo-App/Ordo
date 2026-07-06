@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Surface;
+namespace Directorium\Ordo\Surface;
 
 use DateTimeImmutable;
-use Introibo\Ordo\Engine\Core;
-use Introibo\Ordo\View\DayPresenter;
-use Introibo\Ordo\View\LatinCalendar;
-use Introibo\Ordo\View\Palette;
+use Directorium\Ordo\Engine\Core;
+use Directorium\Ordo\View\DayPresenter;
+use Directorium\Ordo\View\LatinCalendar;
+use Directorium\Ordo\View\Palette;
 
 /**
  * The [ordo_calendar] month grid: a Sunday-first calendar of square cells, each a

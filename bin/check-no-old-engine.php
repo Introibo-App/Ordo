@@ -5,14 +5,14 @@
  * present.
  *
  * The substantive check is a positive invariant — every namespaced PHP file in the
- * bundle must belong to Introibo\Ordo (the plugin) or Introibo\Core (the vendored
+ * bundle must belong to Directorium\Ordo (the plugin) or Directorium\Core (the vendored
  * engine). A stray class from any prior engine would declare some other namespace
  * and fail here. A short, extensible denylist of old-engine identifiers backs it up.
  *
  * Run in CI on every push/PR. Exits non-zero (printing every offending file) on any
  * violation, zero when the tree is clean.
  *
- * @package Introibo\Ordo
+ * @package Directorium\Ordo
  */
 
 declare(strict_types=1);
@@ -52,11 +52,11 @@ $walk = static function (string $dir) use (&$walk, $root, $self, $denylist, &$er
         $rel = ltrim(str_replace('\\', '/', substr($path, strlen($root))), '/');
         $code = (string) file_get_contents($path);
 
-        // Positive invariant: any declared namespace must be an Introibo namespace,
-        // and code vendored under src/Core/ must be Introibo\Core specifically.
+        // Positive invariant: any declared namespace must be an Directorium namespace,
+        // and code vendored under src/Core/ must be Directorium\Core specifically.
         if (preg_match('/^\s*namespace\s+([^;]+);/m', $code, $m) === 1) {
             $namespace = trim($m[1]);
-            $expected = (strpos($rel, 'src/Core/') === 0) ? 'Introibo\\Core' : 'Introibo\\Ordo';
+            $expected = (strpos($rel, 'src/Core/') === 0) ? 'Directorium\\Core' : 'Directorium\\Ordo';
             if (strpos($namespace, $expected) !== 0) {
                 $errors[] = "$rel: namespace '$namespace' is not under '$expected' (old-engine code?)";
             }
@@ -81,5 +81,5 @@ if ($errors !== array()) {
     exit(1);
 }
 
-fwrite(STDOUT, "check-no-old-engine: clean — only Introibo\\Ordo and Introibo\\Core namespaces present.\n");
+fwrite(STDOUT, "check-no-old-engine: clean — only Directorium\\Ordo and Directorium\\Core namespaces present.\n");
 exit(0);

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests;
+namespace Directorium\Ordo\Tests;
 
-use Introibo\Ordo\Autoloader;
+use Directorium\Ordo\Autoloader;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,12 +22,12 @@ final class AutoloaderTest extends TestCase
 
     public function testResolvesPluginNamespace(): void
     {
-        self::assertTrue(class_exists('Introibo\\Ordo\\Engine\\Core'));
+        self::assertTrue(class_exists('Directorium\\Ordo\\Engine\\Core'));
     }
 
     public function testResolvesBundledCoreNamespace(): void
     {
-        self::assertTrue(class_exists('Introibo\\Core\\Introibo'));
+        self::assertTrue(class_exists('Directorium\\Core\\Directorium'));
     }
 
     public function testIgnoresForeignClasses(): void

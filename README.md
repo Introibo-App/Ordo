@@ -3,8 +3,8 @@
 > The traditional Roman liturgical calendar for WordPress — *Introíbo ad altáre Dei.*
 
 **Ordo** is a WordPress plugin that presents the traditional Roman liturgical calendar on any site.
-Its first release is a **standalone MVP** that bundles the Introibo engine and works with no
-external dependency; a later release refactors it into a thin client of the Introibo API (caching
+Its first release is a **standalone MVP** that bundles the Directorium engine and works with no
+external dependency; a later release refactors it into a thin client of the Directorium API (caching
 in WP transients and degrading gracefully when the API is unreachable).
 
 It ships a masthead **calendar strip**, the `[ordo_today]` and `[ordo_calendar]` shortcodes (and
@@ -30,8 +30,8 @@ sync). No runtime build step — Node is used only to bundle assets at build tim
 
 ## Licence
 
-© 2026 Introibo. The plugin is licensed **GPL-2.0-or-later** (see [LICENSE](LICENSE)) — the licence
-WordPress plugins are distributed under. It **bundles the Introibo Core engine** (under
+© 2026 Directorium. The plugin is licensed **GPL-2.0-or-later** (see [LICENSE](LICENSE)) — the licence
+WordPress plugins are distributed under. It **bundles the Directorium Core engine** (under
 [`src/Core/`](src/Core/), vendored by [`bin/vendor-core.php`](bin/vendor-core.php)), which is licensed
 **AGPL-3.0-or-later** (see [`src/Core/LICENSE`](src/Core/LICENSE)); the two are compatible because
 GPL-2.0-**or-later** reaches GPLv3, with which AGPL-3.0 combines. The compiled calendar **dataset**

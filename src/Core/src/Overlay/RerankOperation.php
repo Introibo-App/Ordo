@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Core\Overlay;
+namespace Directorium\Core\Overlay;
 
-use Introibo\Core\Attribute\ElementColour;
-use Introibo\Core\Attribute\RankClass;
-use Introibo\Core\Citation\CitationSet;
-use Introibo\Core\Observance\ObservanceId;
-use Introibo\Core\Sanctoral\SanctoralEntry;
+use Directorium\Core\Attribute\ElementColour;
+use Directorium\Core\Attribute\RankClass;
+use Directorium\Core\Citation\CitationSet;
+use Directorium\Core\Observance\ObservanceId;
+use Directorium\Core\Sanctoral\SanctoralEntry;
 
 /**
  * Re-rank a universal feast the particular calendar keeps but ranks differently —
@@ -17,7 +17,7 @@ use Introibo\Core\Sanctoral\SanctoralEntry;
  *
  * It replaces the base entry's {@see RankClass} (and its {@see ElementColour}, when
  * the higher rank changes the colour) while preserving the feast's identity, date,
- * and vigil link. The overlay's own citation is layered over the base entry's, so
+ * and its vigil/octave links. The overlay's own citation is layered over the base entry's, so
  * the changed field now cites the particular calendar's source, not the universal
  * edition's.
  */
@@ -68,7 +68,9 @@ final class RerankOperation implements OverlayOperation
             $this->rank,
             $this->colour ?? $base->colour(),
             $base->vigilOfId(),
-            $base->citations()->merge($this->citations)
+            $base->citations()->merge($this->citations),
+            $base->legacyRank(),
+            $base->octaveOfId()
         );
 
         return $byId;

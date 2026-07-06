@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Core\Sanctoral;
+namespace Directorium\Core\Sanctoral;
 
-use Introibo\Core\Attribute\RankClass;
-use Introibo\Core\Citation\CitationSet;
-use Introibo\Core\Corpus\Corpus;
-use Introibo\Core\Corpus\CorpusRecord;
-use Introibo\Core\Observance\Observance;
-use Introibo\Core\Observance\ObservanceId;
-use Introibo\Core\Observance\ObservanceKind;
+use Directorium\Core\Attribute\LegacyRank;
+use Directorium\Core\Attribute\RankClass;
+use Directorium\Core\Citation\CitationSet;
+use Directorium\Core\Corpus\Corpus;
+use Directorium\Core\Corpus\CorpusRecord;
+use Directorium\Core\Observance\Observance;
+use Directorium\Core\Observance\ObservanceId;
+use Directorium\Core\Observance\ObservanceKind;
 use RuntimeException;
 
 /**
@@ -27,14 +28,18 @@ use RuntimeException;
  */
 final class CorpusSanctoralData implements SanctoralData
 {
-    /** The path-safe directory key for the 1962 edition inside the corpus tree. */
-    private const EDITION_DIR = 'roman-rubricae-1960';
+    /** The path-safe directory key for the default (1962) edition inside the corpus tree. */
+    public const DEFAULT_EDITION_DIR = 'roman-rubricae-1960';
 
     private Corpus $corpus;
 
-    public function __construct(?Corpus $corpus = null)
+    /** The edition subdirectory whose per-edition attributes and placement this reads. */
+    private string $editionDir;
+
+    public function __construct(?Corpus $corpus = null, string $editionDir = self::DEFAULT_EDITION_DIR)
     {
         $this->corpus = $corpus ?? Corpus::default();
+        $this->editionDir = $editionDir;
     }
 
     public function version(): string
@@ -46,10 +51,10 @@ final class CorpusSanctoralData implements SanctoralData
     public function entries(): array
     {
         $identityById = $this->indexById($this->corpus->identitySanctorale());
-        $attributesById = $this->indexById($this->corpus->attributesSanctorale(self::EDITION_DIR));
+        $attributesById = $this->indexById($this->corpus->attributesSanctorale($this->editionDir));
 
         $entries = [];
-        foreach ($this->corpus->placementSanctorale(self::EDITION_DIR) as $placement) {
+        foreach ($this->corpus->placementSanctorale($this->editionDir) as $placement) {
             $id = CorpusRecord::requireString($placement, 'id');
             $identity = $identityById[$id] ?? null;
             $attributes = $attributesById[$id] ?? null;
@@ -61,6 +66,8 @@ final class CorpusSanctoralData implements SanctoralData
             }
 
             $vigilOf = CorpusRecord::optionalString($placement, 'vigilOf');
+            $octaveOf = CorpusRecord::optionalString($placement, 'octaveOf');
+            $legacyRank = CorpusRecord::optionalString($attributes, 'legacyRank');
 
             $entries[] = new SanctoralEntry(
                 CorpusRecord::requireInt($placement, 'month'),
@@ -78,7 +85,9 @@ final class CorpusSanctoralData implements SanctoralData
                     CorpusRecord::cites($identity),
                     CorpusRecord::cites($attributes),
                     CorpusRecord::cites($placement)
-                ))
+                )),
+                $legacyRank !== null ? LegacyRank::fromString($legacyRank) : null,
+                $octaveOf !== null ? ObservanceId::parse($octaveOf) : null
             );
         }
 

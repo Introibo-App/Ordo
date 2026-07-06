@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo;
+namespace Directorium\Ordo;
 
 /**
  * A tiny PSR-4 autoloader for the plugin and its bundled engine.
@@ -18,8 +18,8 @@ final class Autoloader
 {
     /** @var array<string, string> Namespace prefix (with trailing separator) => base directory. */
     private const PREFIXES = [
-        'Introibo\\Ordo\\' => __DIR__ . '/',
-        'Introibo\\Core\\' => __DIR__ . '/Core/src/',
+        'Directorium\\Ordo\\' => __DIR__ . '/',
+        'Directorium\\Core\\' => __DIR__ . '/Core/src/',
     ];
 
     /**
