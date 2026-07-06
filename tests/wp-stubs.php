@@ -10,7 +10,7 @@
  * escaping actually escapes, translation is a pass-through, and options are read
  * from a test-controlled global.
  *
- * @package Introibo\Ordo\Tests
+ * @package Directorium\Ordo\Tests
  */
 
 declare(strict_types=1);

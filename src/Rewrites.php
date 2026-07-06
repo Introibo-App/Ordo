@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo;
+namespace Directorium\Ordo;
 
 /**
  * The pretty-permalink route for shareable day pages: /ordo/YYYY-MM-DD/.

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Admin;
+namespace Directorium\Ordo\Admin;
 
-use Introibo\Ordo\View\Skin;
+use Directorium\Ordo\View\Skin;
 
 /**
  * The tabbed settings screen (Surface 5 of the approved mockup).
@@ -137,7 +137,7 @@ final class Settings
 
     /**
      * The shipped defaults: the universal calendar, the illuminated skin, commemorations
-     * shown. Mirrors the seed in {@see \Introibo\Ordo\Lifecycle}.
+     * shown. Mirrors the seed in {@see \Directorium\Ordo\Lifecycle}.
      *
      * @return array{calendar: string, palette: string, show_commemorations: bool}
      */
@@ -369,12 +369,12 @@ final class Settings
         $this->aboutRow(__('Rubrics', 'ordo'), __('Rubrics of 1960 (the 1962 system)', 'ordo'));
         $this->aboutRow(
             __('Licence', 'ordo'),
-            __('GPL-2.0-or-later — bundles the Introibo Core engine (AGPL-3.0-or-later); calendar data is CC0.', 'ordo')
+            __('GPL-2.0-or-later — bundles Directorium Core (AGPL-3.0-or-later); calendar data is CC0.', 'ordo')
         );
         echo '</dl>';
 
         echo '<p class="ordo-card__foot">';
-        echo '<a href="https://github.com/Introibo-App/Ordo" target="_blank" rel="noopener noreferrer">'
+        echo '<a href="https://github.com/Directorium/Ordo" target="_blank" rel="noopener noreferrer">'
             . esc_html__('Documentation & source', 'ordo') . '</a>';
         echo '</p>';
         echo '</div>';

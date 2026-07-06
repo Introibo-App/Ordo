@@ -16,7 +16,7 @@
  * Usage: php bin/make-pot.php            (writes languages/ordo.pot)
  *        php bin/make-pot.php --print    (writes to stdout instead)
  *
- * @package Introibo\Ordo
+ * @package Directorium\Ordo
  */
 
 declare(strict_types=1);
@@ -361,12 +361,12 @@ ksort($entries);
 
 $version = '0.1.0';
 $header = <<<POT
-# Copyright (C) Introibo
+# Copyright (C) Directorium
 # This file is distributed under the GPL-2.0-or-later license.
 msgid ""
 msgstr ""
 "Project-Id-Version: Ordo {$version}\\n"
-"Report-Msgid-Bugs-To: https://github.com/Introibo-App/Ordo/issues\\n"
+"Report-Msgid-Bugs-To: https://github.com/Directorium/Ordo/issues\\n"
 "MIME-Version: 1.0\\n"
 "Content-Type: text/plain; charset=UTF-8\\n"
 "Content-Transfer-Encoding: 8bit\\n"

@@ -2,13 +2,13 @@
 
 /**
  * Plugin Name:       Ordo
- * Plugin URI:        https://github.com/Introibo-App/Ordo
- * Description:       The traditional Roman liturgical calendar (1962) for WordPress. Bundles the Introibo engine.
+ * Plugin URI:        https://github.com/Directorium/Ordo
+ * Description:       The traditional Roman liturgical calendar (1962) for WordPress. Bundles the Directorium engine.
  * Version:           0.1.0
  * Requires at least: 6.3
  * Requires PHP:      7.4
- * Author:            Introibo
- * Author URI:        https://github.com/Introibo-App
+ * Author:            Directorium
+ * Author URI:        https://github.com/Directorium
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       ordo
@@ -16,11 +16,11 @@
  *
  * Ordo is free software: you can redistribute it and/or modify it under the terms
  * of the GNU General Public License, version 2 or (at your option) any later
- * version. It bundles the Introibo Core engine, which is licensed AGPL-3.0-or-later
+ * version. It bundles the Directorium Core engine, which is licensed AGPL-3.0-or-later
  * (see src/Core/LICENSE); GPL-2.0-or-later is compatible because it reaches GPLv3,
  * with which AGPL-3.0 combines. The bundled corpus (src/Core/data/corpus/) is CC0.
  *
- * @package Introibo\Ordo
+ * @package Directorium\Ordo
  */
 
 // This file is written to parse on legacy PHP so the version guard below can show a
@@ -80,10 +80,10 @@ if (version_compare(PHP_VERSION, ORDO_MIN_PHP, '<')) {
 // PHP is supported — load the plugin's own PSR-4 autoloader and the bundled engine's
 // function entry points, then wire lifecycle hooks and boot on plugins_loaded.
 require_once ORDO_DIR . 'src/Autoloader.php';
-Introibo\Ordo\Autoloader::register();
+Directorium\Ordo\Autoloader::register();
 require_once ORDO_DIR . 'src/Core/src/functions.php';
 
-register_activation_hook(__FILE__, array('Introibo\\Ordo\\Lifecycle', 'activate'));
-register_deactivation_hook(__FILE__, array('Introibo\\Ordo\\Lifecycle', 'deactivate'));
+register_activation_hook(__FILE__, array('Directorium\\Ordo\\Lifecycle', 'activate'));
+register_deactivation_hook(__FILE__, array('Directorium\\Ordo\\Lifecycle', 'deactivate'));
 
-add_action('plugins_loaded', array('Introibo\\Ordo\\Plugin', 'boot'));
+add_action('plugins_loaded', array('Directorium\\Ordo\\Plugin', 'boot'));

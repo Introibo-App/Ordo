@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo;
+namespace Directorium\Ordo;
 
-use Introibo\Ordo\Admin\Settings;
-use Introibo\Ordo\Engine\Core;
+use Directorium\Ordo\Admin\Settings;
+use Directorium\Ordo\Engine\Core;
 
 /**
  * The plugin bootstrap: wired once on `plugins_loaded`.

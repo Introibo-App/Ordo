@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo;
+namespace Directorium\Ordo;
 
 use DateTimeImmutable;
-use Introibo\Ordo\Engine\Core;
-use Introibo\Ordo\Support\Clock;
-use Introibo\Ordo\Support\IsoDate;
-use Introibo\Ordo\Surface\CalendarStrip;
-use Introibo\Ordo\Surface\Context;
-use Introibo\Ordo\Surface\MonthGrid;
-use Introibo\Ordo\Surface\TodayCard;
-use Introibo\Ordo\View\DayPresenter;
+use Directorium\Ordo\Engine\Core;
+use Directorium\Ordo\Support\Clock;
+use Directorium\Ordo\Support\IsoDate;
+use Directorium\Ordo\Surface\CalendarStrip;
+use Directorium\Ordo\Surface\Context;
+use Directorium\Ordo\Surface\MonthGrid;
+use Directorium\Ordo\Surface\TodayCard;
+use Directorium\Ordo\View\DayPresenter;
 
 /**
  * Registers the public shortcodes and renders them from the bundled engine.

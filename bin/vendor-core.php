@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Vendor the clean-room Introibo Core engine into src/Core/ (issue #3).
+ * Vendor the clean-room Directorium Core engine into src/Core/ (issue #3).
  *
  * Ordo ships standalone: the engine is bundled inside the plugin so a site
  * resolves liturgical days with no API and no network. This script is the
@@ -10,7 +10,7 @@
  * own AGPL licence alongside it. The vendored tree is committed to the repo;
  * this script is a maintainer step, never run on the WordPress host.
  *
- * Clean-room constraint: the ONLY source ever copied is the Introibo Core
+ * Clean-room constraint: the ONLY source ever copied is the Directorium Core
  * repository. Nothing from any prior engine is admitted; bin/check-no-old-engine.php
  * enforces that in CI.
  *
@@ -20,7 +20,7 @@
  * The source defaults to a sibling ../Core checkout (the platform working tree);
  * pass --from or set CORE_SRC to vendor from anywhere.
  *
- * @package Introibo\Ordo
+ * @package Directorium\Ordo
  */
 
 declare(strict_types=1);
@@ -46,16 +46,16 @@ $fail = static function (string $message): void {
 };
 
 // Sanity-check that $source really is a Core checkout before touching anything.
-foreach (['src/Introibo.php', 'src/functions.php', 'data/corpus', 'LICENSE'] as $required) {
+foreach (['src/Directorium.php', 'src/functions.php', 'data/corpus', 'LICENSE'] as $required) {
     if (!file_exists($source . '/' . $required)) {
-        $fail("source '$source' is not an Introibo Core checkout (missing $required).");
+        $fail("source '$source' is not an Directorium Core checkout (missing $required).");
     }
 }
 
 // Read the engine version straight from the source (no autoload needed).
-$introiboPhp = (string) file_get_contents($source . '/src/Introibo.php');
-if (preg_match("/const\s+VERSION\s*=\s*'([^']+)'/", $introiboPhp, $m) !== 1) {
-    $fail('could not read Introibo::VERSION from the source.');
+$directoriumPhp = (string) file_get_contents($source . '/src/Directorium.php');
+if (preg_match("/const\s+VERSION\s*=\s*'([^']+)'/", $directoriumPhp, $m) !== 1) {
+    $fail('could not read Directorium::VERSION from the source.');
 }
 $version = $m[1];
 
@@ -123,11 +123,11 @@ if (!copy($source . '/LICENSE', $target . '/LICENSE')) {
 // Pin the exact version, ref and provenance so the bundle is auditable.
 $stamp = date('Y-m-d');
 $pin = <<<TXT
-Introibo Core — vendored into this plugin (do not edit these files by hand).
+Directorium Core — vendored into this plugin (do not edit these files by hand).
 
 version: $version
 ref:     $ref
-source:  https://github.com/Introibo-App/Core
+source:  https://github.com/Directorium/Core
 vendored: $stamp
 
 Regenerate with:  php bin/vendor-core.php
@@ -137,9 +137,9 @@ TXT;
 file_put_contents($target . '/CORE_VERSION', $pin . PHP_EOL);
 
 $readme = <<<MD
-# Vendored Introibo Core
+# Vendored Directorium Core
 
-This directory is a **generated, committed copy** of the clean-room Introibo Core
+This directory is a **generated, committed copy** of the clean-room Directorium Core
 engine and its CC0 corpus, bundled so the plugin resolves liturgical days offline.
 
 **Do not edit anything here by hand.** Regenerate with `php bin/vendor-core.php`

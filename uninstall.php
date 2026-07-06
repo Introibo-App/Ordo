@@ -12,7 +12,7 @@
  * Note: transients held in an external (non-database) object cache cannot be
  * enumerated by prefix and are left for the cache's own expiry.
  *
- * @package Introibo\Ordo
+ * @package Directorium\Ordo
  */
 
 declare(strict_types=1);

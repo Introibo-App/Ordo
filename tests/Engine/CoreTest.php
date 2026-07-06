@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests\Engine;
+namespace Directorium\Ordo\Tests\Engine;
 
 use DateTimeImmutable;
-use Introibo\Ordo\Engine\Core;
+use Directorium\Ordo\Engine\Core;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -40,7 +40,7 @@ final class CoreTest extends TestCase
 
         self::assertSame('roman:sanctorale:pius-x', $day['celebration'][0]['id']);
         self::assertSame(1, $day['celebration'][0]['rankOrdinal']);
-        self::assertSame('introibo:overlay:roman:sspx', $day['calendar']['particular']['id']);
+        self::assertSame('directorium:overlay:roman:sspx', $day['calendar']['particular']['id']);
     }
 
     public function testBundledCoreVersionIsPinned(): void

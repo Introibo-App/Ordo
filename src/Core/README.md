@@ -1,6 +1,6 @@
-# Vendored Introibo Core
+# Vendored Directorium Core
 
-This directory is a **generated, committed copy** of the clean-room Introibo Core
+This directory is a **generated, committed copy** of the clean-room Directorium Core
 engine and its CC0 corpus, bundled so the plugin resolves liturgical days offline.
 
 **Do not edit anything here by hand.** Regenerate with `php bin/vendor-core.php`

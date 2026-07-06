@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Surface;
+namespace Directorium\Ordo\Surface;
 
 /**
  * The reusable context chip: two small chips naming the active rubric system and

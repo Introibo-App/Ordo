@@ -2,33 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Core\Precedence;
+namespace Directorium\Core\Precedence;
 
 use DateInterval;
 use DateTimeImmutable;
-use Introibo\Core\Calendar\CelebrationRole;
-use Introibo\Core\Calendar\LiturgicalDay;
-use Introibo\Core\Calendar\RealizedObservance;
-use Introibo\Core\Calendar\RoledObservance;
-use Introibo\Core\Contract\Provenance;
-use Introibo\Core\Introibo;
-use Introibo\Core\Sanctoral\CorpusSanctoralData;
-use Introibo\Core\Sanctoral\SanctoralCalendar;
-use Introibo\Core\Sanctoral\SanctoralData;
-use Introibo\Core\Temporal\ChristmasCycle;
-use Introibo\Core\Temporal\Eastertide;
-use Introibo\Core\Temporal\HolyWeek;
-use Introibo\Core\Temporal\LentenCycle;
-use Introibo\Core\Temporal\MovableFeasts;
-use Introibo\Core\Temporal\TemporalCalendar;
-use Introibo\Core\Temporal\TemporalObservance;
-use Introibo\Core\Temporal\TimeAfterPentecost;
-use Introibo\Core\Trace\ResolutionTrace;
+use Directorium\Core\Calendar\CelebrationRole;
+use Directorium\Core\Calendar\LiturgicalDay;
+use Directorium\Core\Calendar\RealizedObservance;
+use Directorium\Core\Calendar\RoledObservance;
+use Directorium\Core\Contract\Provenance;
+use Directorium\Core\Corpus\Corpus;
+use Directorium\Core\Edition\RubricSystem;
+use Directorium\Core\Directorium;
+use Directorium\Core\Sanctoral\CorpusSanctoralData;
+use Directorium\Core\Sanctoral\SanctoralCalendar;
+use Directorium\Core\Sanctoral\SanctoralData;
+use Directorium\Core\Temporal\ChristmasCycle;
+use Directorium\Core\Temporal\Eastertide;
+use Directorium\Core\Temporal\HolyWeek;
+use Directorium\Core\Temporal\LentenCycle;
+use Directorium\Core\Temporal\MovableFeasts;
+use Directorium\Core\Temporal\TemporalCalendar;
+use Directorium\Core\Temporal\TemporalObservance;
+use Directorium\Core\Temporal\TimeAfterPentecost;
+use Directorium\Core\Trace\ResolutionTrace;
 
 /**
  * The resolver: it composes the temporal skeleton and the sanctoral overlay into
  * one celebrated office per day and assembles the {@see LiturgicalDay}s that back
- * {@see \Introibo\Core\day()}.
+ * {@see \Directorium\Core\day()}.
  *
  * Because a transferred feast lands on a later free day, the resolution of any
  * one day depends on what was displaced from earlier days, so a whole civil year
@@ -64,13 +66,51 @@ final class DayResolver
         $this->tracing = $tracing;
     }
 
+    /**
+     * The resolver for a rubric system (edition): its precedence rules, its edition URN
+     * stamped into the contract, and — unless a sanctoral source is supplied (e.g. one
+     * wrapped in a particular-calendar overlay) — its own edition data.
+     *
+     * Only 1962 is built today; selecting 1954 or 1955 throws until Epics #63 / #68 land
+     * their rules and data. The default system reproduces {@see for1962()} exactly.
+     */
+    public static function forEdition(
+        RubricSystem $system,
+        ?SanctoralData $sanctoralData = null,
+        ?Corpus $corpus = null
+    ): self {
+        $corpus = $corpus ?? Corpus::default();
+
+        return new self(
+            self::rulesFor($system, $corpus),
+            $system->urn(),
+            $sanctoralData ?? new CorpusSanctoralData($corpus, $system->corpusDir())
+        );
+    }
+
+    /**
+     * The precedence rules for a rubric system, reading the system's own edition tables.
+     */
+    private static function rulesFor(RubricSystem $system, Corpus $corpus): PrecedenceRules
+    {
+        $table = new PrecedenceTable($corpus, $system->corpusDir());
+        switch ($system->urn()) {
+            case RubricSystem::RUBRICAE_1960:
+                return new Rubrics1962Precedence($table);
+            case RubricSystem::DIVINO_AFFLATU:
+                return new Rubrics1954Precedence($table);
+        }
+
+        throw new \RuntimeException(sprintf(
+            'The %s rubric system is declared on the edition axis but its engine is not yet built.',
+            $system->label()
+        ));
+    }
+
+    /** The 1962 resolver (Rubricae 1960): a convenience for {@see forEdition()} with the default system. */
     public static function for1962(?SanctoralData $sanctoralData = null): self
     {
-        return new self(
-            new Rubrics1962Precedence(),
-            'roman:rubricae-1960',
-            $sanctoralData ?? new CorpusSanctoralData()
-        );
+        return self::forEdition(RubricSystem::rubricae1960(), $sanctoralData);
     }
 
     /**
@@ -86,7 +126,7 @@ final class DayResolver
     /** The edition, corpus, and engine versions this resolver stamps onto a year. */
     public function provenance(): Provenance
     {
-        return new Provenance($this->edition, $this->sanctoralData->version(), Introibo::VERSION);
+        return new Provenance($this->edition, $this->sanctoralData->version(), Directorium::VERSION);
     }
 
     public function resolveDay(DateTimeImmutable $date): LiturgicalDay
@@ -106,7 +146,11 @@ final class DayResolver
             ChristmasCycle::forYear($year),
         ];
         $movable = MovableFeasts::forYear($year);
-        $sanctoral = SanctoralCalendar::forYear($year, $this->sanctoralData);
+        $sanctoral = SanctoralCalendar::forYear(
+            $year,
+            $this->sanctoralData,
+            $this->rules->anticipatesSundayVigils()
+        );
 
         $ledger = new TransferLedger();
         /** @var array<string, list<RealizedObservance>> $forced Feasts placed on a fixed target date. */
@@ -224,7 +268,7 @@ final class DayResolver
         /** @var list<RoledObservance> $displaced */
         $displaced = [];
 
-        /** @var list<array{id: string, outcome: string, reason: \Introibo\Core\Trace\ResolutionReason}> $traceLosers */
+        /** @var list<array{id: string, outcome: string, reason: \Directorium\Core\Trace\ResolutionReason}> $traceLosers */
         $traceLosers = [];
 
         foreach (array_slice($candidates, 1) as $loser) {
@@ -292,7 +336,7 @@ final class DayResolver
      * colour and season were derived (#235).
      *
      * @param list<RealizedObservance> $candidates
-     * @param list<array{id: string, outcome: string, reason: \Introibo\Core\Trace\ResolutionReason}> $losers
+     * @param list<array{id: string, outcome: string, reason: \Directorium\Core\Trace\ResolutionReason}> $losers
      */
     private function buildTrace(
         array $candidates,

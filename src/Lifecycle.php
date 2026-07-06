@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo;
+namespace Directorium\Ordo;
 
 /**
  * Activation, deactivation, and the rewrite flush.

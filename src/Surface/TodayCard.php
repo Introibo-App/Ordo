@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Surface;
+namespace Directorium\Ordo\Surface;
 
-use Introibo\Ordo\View\DayPresenter;
-use Introibo\Ordo\View\Palette;
+use Directorium\Ordo\View\DayPresenter;
+use Directorium\Ordo\View\Palette;
 
 /**
  * The [ordo_today] card — an embeddable summary of a liturgical day: its Latin

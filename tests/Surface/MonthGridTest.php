@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests\Surface;
+namespace Directorium\Ordo\Tests\Surface;
 
 use DateTimeImmutable;
-use Introibo\Ordo\Engine\Core;
-use Introibo\Ordo\Shortcodes;
-use Introibo\Ordo\Surface\Context;
-use Introibo\Ordo\Surface\MonthGrid;
+use Directorium\Ordo\Engine\Core;
+use Directorium\Ordo\Shortcodes;
+use Directorium\Ordo\Surface\Context;
+use Directorium\Ordo\Surface\MonthGrid;
 use PHPUnit\Framework\TestCase;
 
 /**

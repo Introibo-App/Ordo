@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Introibo\Ordo\Tests\Surface;
+namespace Directorium\Ordo\Tests\Surface;
 
-use Introibo\Ordo\Surface\Context;
+use Directorium\Ordo\Surface\Context;
 use PHPUnit\Framework\TestCase;
 
 /**

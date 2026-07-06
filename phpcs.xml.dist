@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="introibo-ordo">
-    <description>Coding standard for introibo/ordo: PSR-12.</description>
+<ruleset name="directorium-ordo">
+    <description>Coding standard for directorium/ordo: PSR-12.</description>
 
     <!-- Scan the plugin bootstrap, its source, maintainer scripts, and the tests. -->
     <file>ordo.php</file>

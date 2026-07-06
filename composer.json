@@ -1,6 +1,6 @@
 {
-    "name": "introibo/ordo",
-    "description": "Ordo: a WordPress plugin presenting the traditional Roman liturgical calendar (bundles the clean-room Introibo engine).",
+    "name": "directorium/ordo",
+    "description": "Ordo: a WordPress plugin presenting the traditional Roman liturgical calendar (bundles the clean-room Directorium engine).",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "keywords": [
@@ -24,8 +24,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Introibo\\Ordo\\": "src/",
-            "Introibo\\Core\\": "src/Core/src/"
+            "Directorium\\Ordo\\": "src/",
+            "Directorium\\Core\\": "src/Core/src/"
         },
         "files": [
             "src/Core/src/functions.php"
@@ -33,7 +33,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Introibo\\Ordo\\Tests\\": "tests/"
+            "Directorium\\Ordo\\Tests\\": "tests/"
         }
     },
     "scripts": {

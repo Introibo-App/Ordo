@@ -16,7 +16,7 @@
  *
  * Run in CI on every push/PR. Exits non-zero (listing every violation) on failure.
  *
- * @package Introibo\Ordo
+ * @package Directorium\Ordo
  */
 
 declare(strict_types=1);
